@@ -9,9 +9,11 @@ Imports System.Runtime.InteropServices
 ' Review the values of the assembly attributes
 
 <Assembly: AssemblyTitle("Σ Wallet")>
+<Assembly: AssemblyDescription("Sigma Wallet")>
 <Assembly: AssemblyCompany("frelis")>
 <Assembly: AssemblyProduct("sigma-wallet")>
 <Assembly: AssemblyCopyright("Copyright © frelis 2018")>
+<Assembly: AssemblyTrademark("Sigma Wallet")>
 
 <Assembly: ComVisible(False)>
 
@@ -29,3 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
+<Assembly: AssemblyVersion("0.1.*")>
+<Assembly: AssemblyFileVersion("0.1.*")>
