@@ -72,10 +72,11 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmAddNew.Designer.vb">
+    <Compile Include="Footer\Footer.vb" />
+    <Compile Include="Footer\frmAddNew.Designer.vb">
       <DependentUpon>frmAddNew.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmAddNew.vb">
+    <Compile Include="Footer\frmAddNew.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.vb">
@@ -100,15 +101,15 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ucFooter.Designer.vb">
+    <Compile Include="Footer\ucFooter.Designer.vb">
       <DependentUpon>ucFooter.vb</DependentUpon>
     </Compile>
-    <Compile Include="ucFooter.vb">
+    <Compile Include="Footer\ucFooter.vb">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="frmAddNew.resx">
+    <EmbeddedResource Include="Footer\frmAddNew.resx">
       <DependentUpon>frmAddNew.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
@@ -120,7 +121,7 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ucFooter.resx">
+    <EmbeddedResource Include="Footer\ucFooter.resx">
       <DependentUpon>ucFooter.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -141,6 +142,10 @@
     <Content Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Coin AEON\Coin AEON.vbproj">
+      <Project>{66ec297a-208c-45cd-9de4-4714c33a0219}</Project>
+      <Name>Coin AEON</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.vbproj">
       <Project>{82b4ee5d-18d9-4671-b8c2-f7f7b282a7cb}</Project>
       <Name>Common</Name>

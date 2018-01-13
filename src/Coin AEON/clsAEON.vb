@@ -1,4 +1,4 @@
-﻿Public Class clsAEON
+﻿Friend Class clsAEON
     Private VERSION = "0.9.14.0"
     Private mValid_handler As Boolean = False
     Private mHandler As String = Info.DirData + "aeon" + Info.DirSep + "simplewallet.exe"

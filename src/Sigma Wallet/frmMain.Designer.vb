@@ -30,18 +30,20 @@ Partial Class frmMain
         '
         Me.flowpanel.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flowpanel.Location = New System.Drawing.Point(0, 0)
+        Me.flowpanel.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.flowpanel.Name = "flowpanel"
-        Me.flowpanel.Size = New System.Drawing.Size(284, 389)
+        Me.flowpanel.Size = New System.Drawing.Size(426, 598)
         Me.flowpanel.TabIndex = 0
         '
         'frmMain
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(284, 389)
+        Me.ClientSize = New System.Drawing.Size(426, 598)
         Me.Controls.Add(Me.flowpanel)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.MinimumSize = New System.Drawing.Size(300, 427)
+        Me.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
+        Me.MinimumSize = New System.Drawing.Size(439, 627)
         Me.Name = "frmMain"
         Me.Text = "Σ Wallet"
         Me.ResumeLayout(False)

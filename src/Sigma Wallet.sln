@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Sigma Wallet", "Sigma Wallet\Sigma Wallet.vbproj", "{236C91DB-9ED6-4ABB-B000-D35B2393880C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{66EC297A-208C-45CD-9DE4-4714C33A0219} = {66EC297A-208C-45CD-9DE4-4714C33A0219}
+	EndProjectSection
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Common", "Common\Common.vbproj", "{82B4EE5D-18D9-4671-B8C2-F7F7B282A7CB}"
 EndProject
