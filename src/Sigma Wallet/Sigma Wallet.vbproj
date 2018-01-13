@@ -108,6 +108,13 @@
     <Compile Include="Footer\ucFooter.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Wallet\ucWallet.Designer.vb">
+      <DependentUpon>ucWallet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Wallet\ucWallet.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wallet\Wallet.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Footer\frmAddNew.resx">
@@ -124,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Footer\ucFooter.resx">
       <DependentUpon>ucFooter.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wallet\ucWallet.resx">
+      <DependentUpon>ucWallet.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

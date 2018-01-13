@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class ucFooter
+Partial Class ucWallet
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
@@ -22,29 +22,43 @@ Partial Class ucFooter
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.btnAddNew = New System.Windows.Forms.Button()
+        Me.lblName = New System.Windows.Forms.Label()
+        Me.lblCoin = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
-        'btnAddNew
+        'lblName
         '
-        Me.btnAddNew.Location = New System.Drawing.Point(24, 16)
-        Me.btnAddNew.Name = "btnAddNew"
-        Me.btnAddNew.Size = New System.Drawing.Size(171, 38)
-        Me.btnAddNew.TabIndex = 0
-        Me.btnAddNew.Text = "Add Wallet"
-        Me.btnAddNew.UseVisualStyleBackColor = True
+        Me.lblName.AutoSize = True
+        Me.lblName.Location = New System.Drawing.Point(13, 13)
+        Me.lblName.Name = "lblName"
+        Me.lblName.Size = New System.Drawing.Size(51, 20)
+        Me.lblName.TabIndex = 0
+        Me.lblName.Text = "Name"
         '
-        'ucFooter
+        'lblCoin
+        '
+        Me.lblCoin.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblCoin.Location = New System.Drawing.Point(367, 13)
+        Me.lblCoin.Name = "lblCoin"
+        Me.lblCoin.Size = New System.Drawing.Size(90, 28)
+        Me.lblCoin.TabIndex = 1
+        Me.lblCoin.Text = "Coin"
+        Me.lblCoin.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'ucWallet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Controls.Add(Me.btnAddNew)
-        Me.Name = "ucFooter"
-        Me.Size = New System.Drawing.Size(411, 69)
+        Me.Controls.Add(Me.lblCoin)
+        Me.Controls.Add(Me.lblName)
+        Me.Name = "ucWallet"
+        Me.Size = New System.Drawing.Size(473, 84)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents btnAddNew As Button
+    Friend WithEvents lblName As Label
+    Friend WithEvents lblCoin As Label
 End Class

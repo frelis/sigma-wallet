@@ -28,12 +28,15 @@ Partial Class frmMain
         '
         'flowpanel
         '
+        Me.flowpanel.AutoScroll = True
         Me.flowpanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flowpanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.flowpanel.Location = New System.Drawing.Point(0, 0)
         Me.flowpanel.Margin = New System.Windows.Forms.Padding(4, 5, 4, 5)
         Me.flowpanel.Name = "flowpanel"
         Me.flowpanel.Size = New System.Drawing.Size(426, 598)
         Me.flowpanel.TabIndex = 0
+        Me.flowpanel.WrapContents = False
         '
         'frmMain
         '

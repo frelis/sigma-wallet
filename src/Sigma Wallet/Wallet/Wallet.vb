@@ -1,11 +1,12 @@
 ﻿Imports frelis
 
-Friend Class Footer
+Public Class Wallet
     Implements itModule
 
 #Region "Varibles"
     Private mAppIcon As Drawing.Icon = Nothing
     Private mCoins As New List(Of itCoin)
+    Private mWallet As Settings.wallet
 #End Region
     Public Event WalletChange As itModule.WalletChangeEventHandler Implements itModule.WalletChange
     Public Event RefreshMain As itModule.RefreshMainEventHandler Implements itModule.RefreshMain
@@ -18,20 +19,16 @@ Friend Class Footer
 
     Public ReadOnly Property Control As UserControl Implements itModule.Control
         Get
-            Dim uc As New ucFooter
-            AddHandler uc.NewWallet, AddressOf NewWallet
-            AddHandler uc.GotFocus, AddressOf RefreshMain_func
+            Dim uc As New ucWallet
+            AddHandler uc.GotFocus, AddressOf Resize
             uc.Coins = mCoins
             If Not IsNothing(mAppIcon) Then uc.Icon = mAppIcon
+            uc.Wallet = mWallet
             Return uc
         End Get
     End Property
 
-    Private Sub NewWallet(wallet As Settings.wallet)
-        RaiseEvent WalletChange(wallet)
-    End Sub
-
-    Private Sub RefreshMain_func(sender As Object, e As EventArgs)
+    Private Sub Resize(sender As Object, e As EventArgs)
         RaiseEvent RefreshMain(Nothing)
     End Sub
 
@@ -41,13 +38,12 @@ Friend Class Footer
         End Set
     End Property
 
-    Public Property Wallet As Settings.wallet Implements itModule.Wallet
+    Private Property itModule_Wallet As Settings.wallet Implements itModule.Wallet
         Get
-            Throw New NotImplementedException()
+            Return mWallet
         End Get
         Set(value As Settings.wallet)
-            Throw New NotImplementedException()
+            mWallet = value
         End Set
     End Property
-
 End Class

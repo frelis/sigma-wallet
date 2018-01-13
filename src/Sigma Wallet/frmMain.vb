@@ -10,17 +10,40 @@
         coin.AppIcon = Me.Icon
         coins.Add(coin)
         Config.ReadConfig()
-        Dim cFooter As itModule
-        cFooter = New Footer
-        cFooter.AppIcon = Me.Icon
-        cFooter.Coins = coins
-        flowpanel.Controls.Add(cFooter.Control)
+        Dim m As itModule
+
+        For Each w As Settings.wallet In Config.Data.wallets
+            m = New Wallet
+            m.AppIcon = Me.Icon
+            m.Coins = coins
+            m.Wallet = w
+            flowpanel.Controls.Add(m.Control)
+            AddHandler m.RefreshMain, AddressOf ResizeMain
+
+        Next
+        m = New Footer
+        m.AppIcon = Me.Icon
+        m.Coins = coins
+        flowpanel.Controls.Add(m.Control)
+        AddHandler m.RefreshMain, AddressOf ResizeMain
         frmMain_Resize(sender, e)
+    End Sub
+
+    Private Sub ResizeMain(sender As Control)
+        frmMain_Resize(sender, New EventArgs)
+    End Sub
+
+    Private Sub UpdateWallets()
+        frmMain_Resize(Me, New EventArgs)
     End Sub
 
     Private Sub frmMain_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         For Each c As Control In flowpanel.Controls
-            c.Width = flowpanel.Width - 5
+            If flowpanel.VerticalScroll.Visible Then
+                c.Width = flowpanel.Width - 5 - SystemInformation.VerticalScrollBarWidth
+            Else
+                c.Width = flowpanel.Width - 5
+            End If
         Next
     End Sub
 End Class
