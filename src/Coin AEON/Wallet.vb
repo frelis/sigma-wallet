@@ -10,7 +10,7 @@ Public Class AEON_NewWallet
 
     Public ReadOnly Property CoinName As String Implements itCoin.CoinName
         Get
-            Return "AEON"
+            Return clsAEON.Name
         End Get
     End Property
 
@@ -28,8 +28,14 @@ Public Class AEON_NewWallet
 
     Public ReadOnly Property NewWalletControl As UserControl Implements itCoin.NewWalletControl
         Get
-            Dim uc As New ucNewWallet
+            Dim uc As New ucNewAEONWallet
+            AddHandler uc.NewWalletCreated, AddressOf NewWallet
             Return uc
         End Get
     End Property
+
+    Public Event NewWalletCreated As itCoin.NewWalletCreatedEventHandler Implements itCoin.NewWalletCreated
+    Private Sub NewWallet(NewWallet As Settings.wallet)
+        RaiseEvent NewWalletCreated(NewWallet)
+    End Sub
 End Class

@@ -17,8 +17,12 @@ Public Class ucFooter
         Me.Enabled = False
         Try
             Dim frm As New frmAddNew
-            frm.Coins = Coins
-            frm.ShowDialog()
+            Dim wallet As Settings.wallet
+            wallet = frm.Open(Coins)
+            If wallet.coin <> "" Then
+                Config.Data.wallets.Add(wallet)
+                Config.SaveConfig()
+            End If
         Catch ex As Exception
             Log.Error("Add New Wallet Button", ex)
         End Try

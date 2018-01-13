@@ -1,8 +1,17 @@
-﻿Public Class frmAddNew
-    Property Coins As New List(Of itCoin)
+﻿Imports frelis
+
+Friend Class frmAddNew
+    Private mCoins As New List(Of itCoin)
+    Private mWallet As New Settings.wallet
+
+    Friend Function Open(Coins As List(Of itCoin)) As Settings.wallet
+        mCoins = Coins
+        Me.ShowDialog()
+        Return mWallet
+    End Function
 
     Private Sub frmAddNew_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        For Each coin As itCoin In Coins
+        For Each coin As itCoin In mCoins
             Dim opt As New RadioButton
             opt.Text = coin.CoinName
             opt.Name = "opt" + coin.CoinName
@@ -22,7 +31,7 @@
             For Each opt As Control In flowpanel.Controls
                 If opt.Name.StartsWith("opt") Then
                     If CType(opt, RadioButton).Checked Then
-                        For Each coin As itCoin In Coins
+                        For Each coin As itCoin In mCoins
                             If coin.CoinName = opt.Text Then
                                 For Each ucrtl As Control In Me.Controls
                                     If ucrtl.Name = "uc" + coin.CoinName Then
@@ -35,6 +44,7 @@
                                 uc = coin.NewWalletControl
                                 uc.Name = "uc" + coin.CoinName
                                 Me.Controls.Add(uc)
+                                AddHandler coin.NewWalletCreated, AddressOf NewWalletCreated
                                 uc.Parent = Me
                                 uc.Dock = DockStyle.Fill
                                 NewWalleVisible(uc)
@@ -49,6 +59,11 @@
             Log.Error("New Wallet btnNext", ex)
         End Try
         Me.Enabled = True
+    End Sub
+
+    Private Sub NewWalletCreated(newWallet As Settings.wallet)
+        mWallet = newWallet
+        Me.Close()
     End Sub
 
     Private Sub NewWalleNotVisible(sender As Object, e As EventArgs)

@@ -72,6 +72,7 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Config.vb" />
     <Compile Include="Footer\Footer.vb" />
     <Compile Include="Footer\frmAddNew.Designer.vb">
       <DependentUpon>frmAddNew.vb</DependentUpon>
