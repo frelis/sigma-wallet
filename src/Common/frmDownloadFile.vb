@@ -29,7 +29,7 @@ Public Class frmDownloadFile
 
     Private Sub client_DownloadProgressChanged(sender As Object, e As DownloadProgressChangedEventArgs)
         Dim bytesIn As Long = e.BytesReceived
-        Dim totalBytes As Long = e.TotalBytesToReceive.ToString()
+        Dim totalBytes As Long = e.TotalBytesToReceive
         ProgressBar1.Value = CInt(bytesIn / totalBytes * 100)
     End Sub
 End Class
