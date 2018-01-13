@@ -11,9 +11,9 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("Σ Wallet")>
 <Assembly: AssemblyDescription("Sigma Wallet")>
 <Assembly: AssemblyCompany("frelis")>
-<Assembly: AssemblyProduct("sigma-wallet")>
+<Assembly: AssemblyProduct("Σ Wallet")>
 <Assembly: AssemblyCopyright("Copyright © frelis 2018")>
-<Assembly: AssemblyTrademark("Sigma Wallet")>
+<Assembly: AssemblyTrademark("Σ Wallet")>
 
 <Assembly: ComVisible(False)>
 
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("0.1.*")>
-<Assembly: AssemblyFileVersion("0.1.*")>
+<Assembly: AssemblyVersion("0.1.2018.0112")>
+<Assembly: AssemblyFileVersion("0.1.2018.0112")>
