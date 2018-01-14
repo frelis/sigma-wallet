@@ -27,7 +27,7 @@ Friend Class Footer
         End Get
     End Property
 
-    Private Sub NewWallet(wallet As Settings.wallet)
+    Private Sub NewWallet(wallet As Coin.Wallet)
         RaiseEvent WalletChange(wallet)
     End Sub
 

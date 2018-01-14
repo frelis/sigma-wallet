@@ -35,11 +35,11 @@ Public Class Header
         End Set
     End Property
 
-    Public Property Wallet As Settings.wallet Implements itModule.Wallet
+    Public Property Wallet As Coin.Wallet Implements itModule.Wallet
         Get
             Throw New NotImplementedException()
         End Get
-        Set(value As Settings.wallet)
+        Set(value As Coin.Wallet)
             Throw New NotImplementedException()
         End Set
     End Property

@@ -1,7 +1,7 @@
 ﻿Imports System.Runtime.Serialization
 Public Class Config
     Public Structure config
-        Dim wallets As List(Of Settings.wallet)
+        Dim wallets As List(Of Coin.Wallet)
     End Structure
 
     Private Shared mconfig As config = Nothing
@@ -34,7 +34,7 @@ Public Class Config
             mconfig = New config
         End If
         If IsNothing(mconfig.wallets) Then
-            mconfig.wallets = New List(Of Settings.wallet)
+            mconfig.wallets = New List(Of Coin.Wallet)
         End If
         rst = True
         Return rst
