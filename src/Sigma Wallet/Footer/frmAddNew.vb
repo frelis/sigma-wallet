@@ -2,9 +2,9 @@
 
 Friend Class frmAddNew
     Private mCoins As New List(Of itCoin)
-    Private mWallet As New Settings.wallet
+    Private mWallet As New Coin.Wallet
 
-    Friend Function Open(Coins As List(Of itCoin)) As Settings.wallet
+    Friend Function Open(Coins As List(Of itCoin)) As Coin.Wallet
         mCoins = Coins
         Me.ShowDialog()
         Return mWallet
@@ -61,7 +61,7 @@ Friend Class frmAddNew
         Me.Enabled = True
     End Sub
 
-    Private Sub NewWalletCreated(newWallet As Settings.wallet)
+    Private Sub NewWalletCreated(newWallet As Coin.Wallet)
         mWallet = newWallet
         Me.Close()
     End Sub

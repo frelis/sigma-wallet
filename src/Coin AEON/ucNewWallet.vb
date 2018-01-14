@@ -1,5 +1,5 @@
 ﻿Public Class ucNewAEONWallet
-    Public Event NewWalletCreated(NewWallet As Settings.wallet)
+    Public Event NewWalletCreated(NewWallet As Coin.Wallet)
 
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
         Me.Visible = False
@@ -24,7 +24,7 @@
     Private Sub btnAEONCreate_Click(sender As Object, e As EventArgs) Handles btnAEONCreate.Click
         Dim aeon As New clsAEON
         If optAEONNew.Checked Then
-            Dim rst As Settings.wallet
+            Dim rst As Coin.Wallet
             txtAEONSeed.Text = ""
             rst = aeon.CreateNew(txtAEONName.Text.Trim, txtAEONPassword.Text.Trim)
             If rst.coin <> "" Then

@@ -35,7 +35,7 @@ Public Class AEON_NewWallet
     End Property
 
     Public Event NewWalletCreated As itCoin.NewWalletCreatedEventHandler Implements itCoin.NewWalletCreated
-    Private Sub NewWallet(NewWallet As Settings.wallet)
+    Private Sub NewWallet(NewWallet As Coin.Wallet)
         RaiseEvent NewWalletCreated(NewWallet)
     End Sub
 End Class

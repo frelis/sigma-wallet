@@ -13,9 +13,9 @@ Friend Class clsAEON
         Try
             Dim cfg As Coin.Coin_Settings
             cfg = Settings.read_settings(Of Coin.Coin_Settings)("settings_aeon.json")
-            If IsNothing(cfg.handler) Then cfg.handler = New List(Of Coin.Wallet_handler)
+            If IsNothing(cfg.handlers) Then cfg.handlers = New List(Of Coin.Wallet_handler)
             Dim s As New Coin.Wallet_handler
-            For Each s In cfg.handler
+            For Each s In cfg.handlers
                 If s.coin = "aeon" AndAlso s.platform = Info.SystemType Then
                     rst = True
                     Exit For
