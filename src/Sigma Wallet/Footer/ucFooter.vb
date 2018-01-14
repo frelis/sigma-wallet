@@ -1,7 +1,7 @@
 ﻿Imports frelis
 
 Public Class ucFooter
-    Public Event NewWallet(wallet As Settings.wallet)
+    Public Event NewWallet(wallet As Coin.Wallet)
 #Region "Variables and Properties"
     Private mAppIcon As Drawing.Icon
     Public WriteOnly Property Icon() As Drawing.Icon
@@ -17,12 +17,12 @@ Public Class ucFooter
         End Set
     End Property
 
-    Private mWallet As Settings.wallet
-    Public Property Wallet() As Settings.wallet
+    Private mWallet As Coin.Wallet
+    Public Property Wallet() As Coin.Wallet
         Get
             Return mWallet
         End Get
-        Set(ByVal value As Settings.wallet)
+        Set(ByVal value As Coin.Wallet)
             mWallet = value
         End Set
     End Property
@@ -32,7 +32,7 @@ Public Class ucFooter
         Me.Enabled = False
         Try
             Dim frm As New frmAddNew
-            Dim wallet As Settings.wallet
+            Dim wallet As Coin.Wallet
             wallet = frm.Open(mCoins)
             If wallet.coin <> "" Then
                 Config.Data.wallets.Add(wallet)

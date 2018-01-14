@@ -75,7 +75,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Colors.vb" />
+    <Compile Include="Template.vb" />
     <Compile Include="frmDownloadFile.Designer.vb">
       <DependentUpon>frmDownloadFile.vb</DependentUpon>
     </Compile>
@@ -102,6 +102,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Settings.vb" />
+    <Compile Include="Coin.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmDownloadFile.resx">

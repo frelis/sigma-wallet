@@ -11,11 +11,11 @@ Friend Class clsAEON
     Public Function get_wallet_handler() As Boolean
         Dim rst As Boolean = False
         Try
-            Dim cfg As New List(Of Settings.wallet_handler)
-            cfg = Settings.Get_Handler_settings("aeon_handler.json")
-
-            Dim s As New Settings.wallet_handler
-            For Each s In cfg
+            Dim cfg As Coin.Coin_Settings
+            cfg = Settings.read_settings(Of Coin.Coin_Settings)("settings_aeon.json")
+            If IsNothing(cfg.handler) Then cfg.handler = New List(Of Coin.Wallet_handler)
+            Dim s As New Coin.Wallet_handler
+            For Each s In cfg.handler
                 If s.coin = "aeon" AndAlso s.platform = Info.SystemType Then
                     rst = True
                     Exit For
@@ -99,8 +99,8 @@ Friend Class clsAEON
         Return rst
     End Function
 
-    Friend Function CreateNew(name As String, password As String) As Settings.wallet
-        Dim rst As New Settings.wallet
+    Friend Function CreateNew(name As String, password As String) As Coin.Wallet
+        Dim rst As New Coin.Wallet
         Try
             If Not mValid_handler Then get_wallet_handler()
             If Not mValid_handler Then
@@ -142,7 +142,7 @@ Friend Class clsAEON
                     rst.password = password
                     rst.amount = 0
                     rst.order = 999
-                    rst.history = New List(Of Settings.movement)
+                    rst.history = New List(Of Coin.Movement)
                 Else
                     Log.Warning("Create New AEON Wallet", "Invalid Ouput Format:" + vbNewLine + outputrst)
                 End If

@@ -14,12 +14,12 @@
         End Set
     End Property
 
-    Private mWallet As Settings.wallet
-    Public Property Wallet() As Settings.wallet
+    Private mWallet As Coin.Wallet
+    Public Property Wallet() As Coin.Wallet
         Get
             Return mWallet
         End Get
-        Set(ByVal value As Settings.wallet)
+        Set(ByVal value As Coin.Wallet)
             mWallet = value
             lblName.Text = mWallet.name
             lblCoin.Text = mWallet.coin

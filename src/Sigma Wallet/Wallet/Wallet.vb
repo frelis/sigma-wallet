@@ -6,7 +6,7 @@ Public Class Wallet
 #Region "Varibles"
     Private mAppIcon As Drawing.Icon = Nothing
     Private mCoins As New List(Of itCoin)
-    Private mWallet As Settings.wallet
+    Private mWallet As Coin.Wallet
 #End Region
     Public Event WalletChange As itModule.WalletChangeEventHandler Implements itModule.WalletChange
     Public Event RefreshMain As itModule.RefreshMainEventHandler Implements itModule.RefreshMain
@@ -38,11 +38,11 @@ Public Class Wallet
         End Set
     End Property
 
-    Private Property itModule_Wallet As Settings.wallet Implements itModule.Wallet
+    Private Property itModule_Wallet As Coin.Wallet Implements itModule.Wallet
         Get
             Return mWallet
         End Get
-        Set(value As Settings.wallet)
+        Set(value As Coin.Wallet)
             mWallet = value
         End Set
     End Property

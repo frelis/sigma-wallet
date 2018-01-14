@@ -20,7 +20,7 @@
         flowpanel.Controls.Add(m.Control)
         AddHandler m.RefreshMain, AddressOf ResizeMain
 
-        For Each w As Settings.wallet In Config.Data.wallets
+        For Each w As Coin.Wallet In Config.Data.wallets
             m = New Wallet
             m.AppIcon = Me.Icon
             m.Coins = coins

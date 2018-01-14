@@ -3,5 +3,5 @@
     ReadOnly Property CoinIcon As System.Drawing.Icon
     WriteOnly Property AppIcon As System.Drawing.Icon
     ReadOnly Property NewWalletControl As Windows.Forms.UserControl
-    Event NewWalletCreated(newWallet As Settings.wallet)
+    Event NewWalletCreated(newWallet As Coin.Wallet)
 End Interface

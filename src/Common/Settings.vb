@@ -1,31 +1,6 @@
 ﻿Imports Newtonsoft.Json
 
 Public Class Settings
-    Public Structure wallet_handler
-        Dim version As String
-        Dim source As String
-        Dim platform As String
-        Dim coin As String
-    End Structure
-
-    Public Structure wallet
-        Dim name As String
-        Dim order As Integer
-        Dim coin As String
-        Dim wallet As String
-        Dim seed As String
-        Dim viewkey As String
-        Dim password As String
-        Dim amount As Decimal
-        Dim history As List(Of movement)
-    End Structure
-
-    Public Structure movement
-        Dim TimeStamp As Date
-        Dim amount As Decimal
-        Dim text As String
-    End Structure
-
     Public Shared Function read_settings(Of T)(filename As String) As T
         Dim rst As T
         Try
@@ -52,13 +27,6 @@ Public Class Settings
         Catch ex As Exception
             Log.Error("Write Settings", ex)
         End Try
-        Return rst
-    End Function
-
-
-    Public Shared Function Get_Handler_settings(filename As String) As List(Of wallet_handler)
-        Dim rst As List(Of wallet_handler)
-        rst = read_settings(Of List(Of wallet_handler))(filename)
         Return rst
     End Function
 End Class
