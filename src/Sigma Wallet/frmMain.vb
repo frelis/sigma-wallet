@@ -3,6 +3,8 @@
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Application.EnableVisualStyles()
+        Me.BackColor = Template.Current.background
+        Me.flowpanel.BackColor = Template.Current.background
     End Sub
     Private Sub Form1_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         Dim coin As itCoin

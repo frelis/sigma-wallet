@@ -27,7 +27,7 @@ Partial Class ucFooter
         '
         'btnAddNew
         '
-        Me.btnAddNew.Location = New System.Drawing.Point(24, 16)
+        Me.btnAddNew.Location = New System.Drawing.Point(12, 12)
         Me.btnAddNew.Name = "btnAddNew"
         Me.btnAddNew.Size = New System.Drawing.Size(171, 38)
         Me.btnAddNew.TabIndex = 0
@@ -38,10 +38,9 @@ Partial Class ucFooter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Controls.Add(Me.btnAddNew)
         Me.Name = "ucFooter"
-        Me.Size = New System.Drawing.Size(411, 69)
+        Me.Size = New System.Drawing.Size(413, 63)
         Me.ResumeLayout(False)
 
     End Sub

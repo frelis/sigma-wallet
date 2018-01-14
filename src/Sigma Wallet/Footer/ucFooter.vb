@@ -2,6 +2,7 @@
 
 Public Class ucFooter
     Public Event NewWallet(wallet As Settings.wallet)
+#Region "Variables and Properties"
     Private mAppIcon As Drawing.Icon
     Public WriteOnly Property Icon() As Drawing.Icon
         Set(ByVal value As Drawing.Icon)
@@ -25,6 +26,7 @@ Public Class ucFooter
             mWallet = value
         End Set
     End Property
+#End Region
 
     Private Sub btnAddNew_Click(sender As Object, e As EventArgs) Handles btnAddNew.Click
         Me.Enabled = False
@@ -54,4 +56,11 @@ Public Class ucFooter
         Me.Enabled = True
     End Sub
 
+    Private Sub ucFooter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.BackColor = Template.Current.background_alt
+    End Sub
+
+    Private Sub ucFooter_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
+        e.Graphics.DrawRectangle(New Pen(Template.Current.border, 3), Me.ClientRectangle)
+    End Sub
 End Class
