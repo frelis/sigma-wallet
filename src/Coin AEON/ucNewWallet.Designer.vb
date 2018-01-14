@@ -108,12 +108,12 @@ Partial Class ucNewAEONWallet
         'optAEONExisting
         '
         Me.optAEONExisting.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.optAEONExisting.Location = New System.Drawing.Point(290, 43)
+        Me.optAEONExisting.Location = New System.Drawing.Point(295, 43)
         Me.optAEONExisting.Name = "optAEONExisting"
-        Me.optAEONExisting.Size = New System.Drawing.Size(197, 24)
+        Me.optAEONExisting.Size = New System.Drawing.Size(192, 24)
         Me.optAEONExisting.TabIndex = 10
         Me.optAEONExisting.TabStop = True
-        Me.optAEONExisting.Text = "Load Existing Wallet"
+        Me.optAEONExisting.Text = "Load existing wallet"
         Me.optAEONExisting.UseVisualStyleBackColor = True
         '
         'optAEONNew
@@ -121,10 +121,10 @@ Partial Class ucNewAEONWallet
         Me.optAEONNew.AutoSize = True
         Me.optAEONNew.Location = New System.Drawing.Point(14, 43)
         Me.optAEONNew.Name = "optAEONNew"
-        Me.optAEONNew.Size = New System.Drawing.Size(165, 24)
+        Me.optAEONNew.Size = New System.Drawing.Size(159, 24)
         Me.optAEONNew.TabIndex = 9
         Me.optAEONNew.TabStop = True
-        Me.optAEONNew.Text = "Create New Wallet"
+        Me.optAEONNew.Text = "Create new wallet"
         Me.optAEONNew.UseVisualStyleBackColor = True
         '
         'lblName

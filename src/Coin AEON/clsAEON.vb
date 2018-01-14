@@ -1,4 +1,5 @@
 ﻿Imports System.IO.Compression
+Imports frelis
 
 Friend Class clsAEON
     Public Const Name = "AEON"
@@ -7,8 +8,8 @@ Friend Class clsAEON
     Private mBasePath = Info.DirData + Name.ToLower + Info.DirSep
     Private mHandler As String = mBasePath + "simplewallet.exe"
     Private mWalletFilePath As String = mBasePath
-
-    Public Function get_wallet_handler() As Boolean
+#Region "Private Methods"
+    Private Function get_wallet_handler() As Boolean
         Dim rst As Boolean = False
         Try
             Dim cfg As Coin.Coin_Settings
@@ -77,7 +78,7 @@ Friend Class clsAEON
         Return proc
     End Function
 
-    Public Function GetVersion() As String
+    Private Function GetVersion() As String
         Dim rst As String = ""
         Try
             Dim proc As Process = Aeon_process()
@@ -98,7 +99,7 @@ Friend Class clsAEON
         End Try
         Return rst
     End Function
-
+#End Region
     Friend Function CreateNew(name As String, password As String) As Coin.Wallet
         Dim rst As New Coin.Wallet
         Try
@@ -107,10 +108,15 @@ Friend Class clsAEON
                 Log.Warning("Wallet handler not available", "Wallet handler is not avalaible, wallet was not created")
                 Return rst
             End If
+            Dim args As String
+            args = "--generate-new-wallet """ + mWalletFilePath + name + """"
+            args = args + " --password """ + password + """"
+            args = args + " exit"
             Dim proc As Process = Aeon_process()
-            proc.StartInfo.Arguments = "--generate-new-wallet """ + mWalletFilePath + name + """ --password """ + password + """ exit"
+            proc.StartInfo.Arguments = args
             proc.Start()
-            proc.WaitForExit()
+            proc.WaitForExit(10000)
+            If Not proc.HasExited Then proc.Kill()
 
             Dim outputrst As String
             outputrst = proc.StandardOutput.ReadToEnd()
@@ -151,6 +157,74 @@ Friend Class clsAEON
             End If
         Catch ex As Exception
             Log.Error("Create New AEON Wallet", ex)
+            rst.coin = ""
+        End Try
+        Return rst
+    End Function
+
+    Friend Function CreateExisting(name As String, password As String, seed As String) As Coin.Wallet
+        Dim rst As New Coin.Wallet
+        Try
+            If Not mValid_handler Then get_wallet_handler()
+            If Not mValid_handler Then
+                Log.Warning("Wallet handler not available", "Wallet handler is not avalaible, wallet was not created")
+                Return rst
+            End If
+            Dim args As String
+            args = "--restore-deterministic-wallet"
+            args = args + " --generate-new-wallet """ + mWalletFilePath + name + """"
+            args = args + " --password """ + password + """"
+            args = args + " --electrum-seed """ + seed + """"
+            args = args + " exit"
+            Dim proc As Process = Aeon_process()
+            proc.StartInfo.Arguments = args
+            proc.Start()
+            proc.WaitForExit(10000)
+            If Not proc.HasExited Then proc.Kill()
+
+            Dim outputrst As String
+            outputrst = proc.StandardOutput.ReadToEnd()
+            proc = Nothing
+            If outputrst.Contains("Generated new wallet:") Then
+                Dim lines() As String = outputrst.Split(vbNewLine)
+                For i As Integer = 0 To lines.Length - 1
+                    If lines(i).Trim.StartsWith("Generated new wallet:") Then
+                        rst.wallet = lines(i).Trim.Substring(22)
+                    ElseIf lines(i).Trim.StartsWith("view key:") Then
+                        rst.viewkey = lines(i).Trim.Substring(10)
+                    ElseIf lines(i).Trim.StartsWith("PLEASE NOTE: the following 24 words") Then
+                        If lines.Length - 1 >= i + 1 Then
+                            If lines(i + 1).Length > 25 Then
+                                rst.seed = lines(i + 1).Trim
+                            Else
+                                If lines.Length - 1 >= i + 2 Then
+                                    If lines(i + 2).Length > 25 Then
+                                        rst.seed = lines(i + 2).Trim
+                                    End If
+                                End If
+                            End If
+                        End If
+                    End If
+                Next
+                If rst.seed <> "" And rst.wallet <> "" And rst.viewkey <> "" Then
+                    If rst.seed = seed Then
+                        rst.coin = clsAEON.Name
+                        rst.name = name
+                        rst.password = password
+                        rst.amount = 0
+                        rst.order = 999
+                        rst.history = New List(Of Coin.Movement)
+                    Else
+                        Log.Warning("Create Existing AEON Wallet", "Seed result is not the same:" + vbNewLine + "Input seed: " + seed + vbNewLine + "Ouput seed: " + rst.seed)
+                    End If
+                Else
+                    Log.Warning("Create Existing AEON Wallet", "Invalid Output Format:" + vbNewLine + outputrst)
+                End If
+            Else
+                Log.Warning("Create Existing AEON Wallet", "Wrong Output Format:" + vbNewLine + outputrst)
+            End If
+        Catch ex As Exception
+            Log.Error("Create Existing AEON Wallet", ex)
             rst.coin = ""
         End Try
         Return rst

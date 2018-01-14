@@ -1,4 +1,6 @@
-﻿Public Class ucNewAEONWallet
+﻿Imports System.Windows.Forms
+
+Public Class ucNewAEONWallet
     Public Event NewWalletCreated(NewWallet As Coin.Wallet)
 
     Private Sub btnBack_Click(sender As Object, e As EventArgs) Handles btnBack.Click
@@ -32,26 +34,39 @@
     End Sub
 
     Private Sub btnAEONCreate_Click(sender As Object, e As EventArgs) Handles btnAEONCreate.Click
-        Dim aeon As New clsAEON
-        If optAEONNew.Checked Then
-            Dim rst As Coin.Wallet
-            txtAEONSeed.Text = ""
-            rst = aeon.CreateNew(txtAEONName.Text.Trim, txtAEONPassword.Text.Trim)
-            If rst.coin <> "" Then
-                RaiseEvent NewWalletCreated(rst)
-            End If
-        ElseIf optAEONExisting.Checked Then
-            Dim aux() As String = txtAEONSeed.Text.Trim.Split(" "c)
-            If aux.Length >= 24 Then
-                txtAEONSeed.SuspendLayout()
+        btnAEONCreate.Enabled = False
+        Me.Cursor = Cursors.WaitCursor
+        Try
+            Dim aeon As New clsAEON
+            If optAEONNew.Checked Then
                 txtAEONSeed.Text = ""
-                For i As Integer = 0 To 22
-                    txtAEONSeed.Text = txtAEONSeed.Text + aux(i).Trim.ToLower + " "
-                Next
-                txtAEONSeed.Text = txtAEONSeed.Text + aux(23).Trim.ToLower
-                txtAEONSeed.ResumeLayout()
+                Dim rst As Coin.Wallet
+                rst = aeon.CreateNew(txtAEONName.Text.Trim, txtAEONPassword.Text.Trim)
+                If rst.coin <> "" Then
+                    RaiseEvent NewWalletCreated(rst)
+                End If
+            ElseIf optAEONExisting.Checked Then
+                Dim aux() As String = txtAEONSeed.Text.Trim.Split(" "c)
+                If aux.Length >= 24 Then
+                    txtAEONSeed.SuspendLayout()
+                    txtAEONSeed.Text = ""
+                    For i As Integer = 0 To 22
+                        txtAEONSeed.Text = txtAEONSeed.Text + aux(i).Trim.ToLower + " "
+                    Next
+                    txtAEONSeed.Text = txtAEONSeed.Text + aux(23).Trim.ToLower
+                    txtAEONSeed.ResumeLayout()
+                    Dim rst As Coin.Wallet
+                    rst = aeon.CreateExisting(txtAEONName.Text.Trim, txtAEONPassword.Text.Trim, txtAEONSeed.Text)
+                    If rst.coin <> "" Then
+                        RaiseEvent NewWalletCreated(rst)
+                    End If
+                End If
             End If
-        End If
+        Catch ex As Exception
+            Log.Error("AEON Create Button", ex)
+        End Try
+        btnAEONCreate.Enabled = True
+        Me.Cursor = Cursors.Default
     End Sub
 
     Private Sub EnablebtnAEONCreate()
