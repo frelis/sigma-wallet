@@ -12,6 +12,12 @@
         Config.ReadConfig()
         Dim m As itModule
 
+        m = New Header
+        m.AppIcon = Me.Icon
+        m.Coins = coins
+        flowpanel.Controls.Add(m.Control)
+        AddHandler m.RefreshMain, AddressOf ResizeMain
+
         For Each w As Settings.wallet In Config.Data.wallets
             m = New Wallet
             m.AppIcon = Me.Icon
