@@ -145,6 +145,7 @@ Friend Class clsAEON
                 If rst.seed <> "" And rst.wallet <> "" And rst.viewkey <> "" Then
                     rst.coin = clsAEON.Name
                     rst.name = name
+                    rst.wallet_location = mWalletFilePath + name
                     rst.password = password
                     rst.amount = 0
                     rst.order = 999
@@ -210,6 +211,7 @@ Friend Class clsAEON
                     If rst.seed = seed Then
                         rst.coin = clsAEON.Name
                         rst.name = name
+                        rst.wallet_location = mWalletFilePath + name
                         rst.password = password
                         rst.amount = 0
                         rst.order = 999

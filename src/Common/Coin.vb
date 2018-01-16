@@ -14,6 +14,7 @@
         Dim name As String
         Dim order As Integer
         Dim coin As String
+        Dim wallet_location As String
         Dim wallet As String
         Dim seed As String
         Dim viewkey As String
