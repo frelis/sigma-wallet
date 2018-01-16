@@ -29,6 +29,10 @@ Partial Class ucWallet
         Me.lblValue = New System.Windows.Forms.Label()
         Me.lblWallet = New System.Windows.Forms.Label()
         Me.picCopywalletAdress = New System.Windows.Forms.PictureBox()
+        Me.progbarSync = New System.Windows.Forms.ProgressBar()
+        Me.btnSync = New System.Windows.Forms.Button()
+        Me.lblprogress = New System.Windows.Forms.Label()
+        Me.lblStatus = New System.Windows.Forms.Label()
         Me.pnlHeader.SuspendLayout()
         CType(Me.picCopywalletAdress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -95,16 +99,65 @@ Partial Class ucWallet
         Me.picCopywalletAdress.TabIndex = 5
         Me.picCopywalletAdress.TabStop = False
         '
+        'progbarSync
+        '
+        Me.progbarSync.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.progbarSync.Location = New System.Drawing.Point(8, 123)
+        Me.progbarSync.Name = "progbarSync"
+        Me.progbarSync.Size = New System.Drawing.Size(341, 14)
+        Me.progbarSync.Step = 1
+        Me.progbarSync.TabIndex = 6
+        '
+        'btnSync
+        '
+        Me.btnSync.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnSync.Location = New System.Drawing.Point(355, 123)
+        Me.btnSync.Name = "btnSync"
+        Me.btnSync.Size = New System.Drawing.Size(106, 39)
+        Me.btnSync.TabIndex = 7
+        Me.btnSync.Text = "Start Sync"
+        Me.btnSync.UseVisualStyleBackColor = True
+        '
+        'lblprogress
+        '
+        Me.lblprogress.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblprogress.AutoEllipsis = True
+        Me.lblprogress.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblprogress.Location = New System.Drawing.Point(4, 140)
+        Me.lblprogress.Name = "lblprogress"
+        Me.lblprogress.Size = New System.Drawing.Size(345, 22)
+        Me.lblprogress.TabIndex = 8
+        Me.lblprogress.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblStatus
+        '
+        Me.lblStatus.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblStatus.AutoEllipsis = True
+        Me.lblStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblStatus.Location = New System.Drawing.Point(212, 43)
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(249, 28)
+        Me.lblStatus.TabIndex = 9
+        Me.lblStatus.Text = "Never Sync"
+        Me.lblStatus.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
         'ucWallet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.lblStatus)
+        Me.Controls.Add(Me.lblprogress)
+        Me.Controls.Add(Me.btnSync)
+        Me.Controls.Add(Me.progbarSync)
         Me.Controls.Add(Me.picCopywalletAdress)
         Me.Controls.Add(Me.lblWallet)
         Me.Controls.Add(Me.lblValue)
         Me.Controls.Add(Me.pnlHeader)
         Me.Name = "ucWallet"
-        Me.Size = New System.Drawing.Size(475, 115)
+        Me.Size = New System.Drawing.Size(475, 174)
         Me.pnlHeader.ResumeLayout(False)
         CType(Me.picCopywalletAdress, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -117,4 +170,8 @@ Partial Class ucWallet
     Friend WithEvents lblValue As Label
     Friend WithEvents lblWallet As Label
     Friend WithEvents picCopywalletAdress As PictureBox
+    Friend WithEvents progbarSync As ProgressBar
+    Friend WithEvents btnSync As Button
+    Friend WithEvents lblprogress As Label
+    Friend WithEvents lblStatus As Label
 End Class

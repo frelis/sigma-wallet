@@ -34,6 +34,12 @@ Public Class AEON_NewWallet
         End Get
     End Property
 
+    Public ReadOnly Property Sync As itSyncWallet Implements itCoin.Sync
+        Get
+            Throw New NotImplementedException()
+        End Get
+    End Property
+
     Public Event NewWalletCreated As itCoin.NewWalletCreatedEventHandler Implements itCoin.NewWalletCreated
     Private Sub NewWallet(NewWallet As Coin.Wallet)
         RaiseEvent NewWalletCreated(NewWallet)

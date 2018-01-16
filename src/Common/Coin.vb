@@ -1,6 +1,7 @@
 ﻿Public Class Coin
     Public Structure Coin_Settings
         Dim handlers As List(Of Wallet_handler)
+        Dim nodes As List(Of node)
     End Structure
 
     Public Structure Wallet_handler
@@ -8,6 +9,13 @@
         Dim source As String
         Dim platform As String
         Dim coin As String
+    End Structure
+
+    Public Structure Node
+        Dim name As String
+        Dim protocol As String
+        Dim hostname As String
+        Dim port As Integer
     End Structure
 
     Public Structure Wallet
@@ -20,6 +28,7 @@
         Dim viewkey As String
         Dim password As String
         Dim amount As Decimal
+        Dim last_sync As DateTime
         Dim history As List(Of Movement)
     End Structure
 

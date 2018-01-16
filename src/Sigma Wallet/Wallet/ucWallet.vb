@@ -7,12 +7,20 @@
         End Set
     End Property
 
-    Private mCoins As List(Of itCoin)
+    Private mCoin As itCoin = Nothing
+    Private mCoins As New List(Of itCoin)
     Public WriteOnly Property Coins() As List(Of itCoin)
         Set(ByVal value As List(Of itCoin))
             mCoins = value
+            mCoin = Nothing
+            If mWallet.name <> "" Then
+                For Each c As itCoin In mCoins
+                    If c.CoinName = Wallet.coin Then mCoin = c
+                Next
+            End If
         End Set
     End Property
+
 
     Private mWallet As Coin.Wallet
     Public Property Wallet() As Coin.Wallet
@@ -25,6 +33,12 @@
             lblCoin.Text = mWallet.coin
             lblWallet.Text = mWallet.wallet
             UpdateAmount(mWallet.amount)
+            mCoin = Nothing
+            If mCoins.Count > 0 Then
+                For Each c As itCoin In mCoins
+                    If c.CoinName = Wallet.coin Then mCoin = c
+                Next
+            End If
         End Set
     End Property
 #End Region
@@ -46,7 +60,7 @@
     End Sub
     Private Sub Expand()
         Static notexpanded As Integer = Me.Height
-        Static expanded As Integer = CInt(Me.Height * 200 / 115)
+        Static expanded As Integer = CInt(Me.Height * 174 / 115)
         If Me.ClientRectangle.Contains(Me.PointToClient(Control.MousePosition)) Then
             If Me.Height <> expanded Then
                 Me.Height = expanded
@@ -121,6 +135,28 @@
         picCopywalletAdress.BackColor = Template.Current.background
     End Sub
 #End Region
+    Dim sync As itSyncWallet
+    Private Sub btnSync_Click(sender As Object, e As EventArgs) Handles btnSync.Click
+        If IsNothing(mCoin) Then Exit Sub
+        btnSync.Enabled = False
+        Try
+            If btnSync.Text = "Start Sync" Then
+                sync = mCoin.Sync
+                AddHandler sync.Progress, AddressOf UpdateProgress
+                sync.Start(mWallet)
+            Else
+                sync.Stop()
+            End If
+        Catch ex As Exception
+            Log.Error("Sync Buton", ex)
+        End Try
+        btnSync.Enabled = True
+    End Sub
 
-
+    Private Sub UpdateProgress(IniPos As Long, CurrentPos As Long, EndPos As Long)
+        Dim lbl As String
+        lbl = IniPos.ToString + " of " + EndPos.ToString
+        If lblprogress.Text <> lbl Then lblprogress.Text = lbl
+        progbarSync.Value = CInt((CurrentPos - IniPos) / (EndPos - IniPos))
+    End Sub
 End Class
