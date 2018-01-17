@@ -1,5 +1,5 @@
 ﻿Imports System.Runtime.Serialization
-Public Class Config
+Public Class Wallets_Data
     Public Structure config
         Dim wallets As List(Of Coin.Wallet)
     End Structure

@@ -35,8 +35,8 @@ Public Class ucFooter
             Dim wallet As Coin.Wallet
             wallet = frm.Open(mCoins)
             If wallet.coin <> "" Then
-                Config.Data.wallets.Add(wallet)
-                Config.SaveConfig()
+                Wallets_Data.Data.wallets.Add(wallet)
+                Wallets_Data.SaveConfig()
 
                 Dim p As Control = Me.Parent
                 Dim m As itModule

@@ -11,7 +11,7 @@
         coin = New AEON_NewWallet
         coin.AppIcon = Me.Icon
         coins.Add(coin)
-        Config.ReadConfig()
+        Wallets_Data.ReadConfig()
         Dim m As itModule
 
         m = New Header
@@ -20,7 +20,7 @@
         flowpanel.Controls.Add(m.Control)
         AddHandler m.RefreshMain, AddressOf ResizeMain
 
-        For Each w As Coin.Wallet In Config.Data.wallets
+        For Each w As Coin.Wallet In Wallets_Data.Data.wallets
             m = New Wallet
             m.AppIcon = Me.Icon
             m.Coins = coins
