@@ -29,7 +29,9 @@ Public Class Wallets_Data
     End Function
     Public Shared Function ReadConfig() As Boolean
         Dim rst As Boolean = False
-        mconfig = Settings.read_settings(Of config)(Info.DirDoc + "Σ Wallet.wallets")
+        If IO.File.Exists(Info.DirDoc + "Σ Wallet.wallets") Then
+            mconfig = Settings.read_settings(Of config)(Info.DirDoc + "Σ Wallet.wallets")
+        End If
         If IsNothing(mconfig) Then
             mconfig = New config
         End If

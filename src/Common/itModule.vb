@@ -5,4 +5,7 @@
     ReadOnly Property Control As Windows.Forms.UserControl
     WriteOnly Property Coins As List(Of itCoin)
     Property Wallet As Coin.Wallet
+    ReadOnly Property Name As String
 End Interface
+
+

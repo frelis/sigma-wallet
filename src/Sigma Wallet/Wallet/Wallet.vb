@@ -46,4 +46,10 @@ Public Class Wallet
             mWallet = value
         End Set
     End Property
+
+    Public ReadOnly Property Name As String Implements itModule.Name
+        Get
+            Return "Wallets"
+        End Get
+    End Property
 End Class

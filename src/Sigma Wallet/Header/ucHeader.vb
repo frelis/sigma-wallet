@@ -12,4 +12,10 @@
             mCoins = value
         End Set
     End Property
+
+    Private Sub picConfig_Click(sender As Object, e As EventArgs) Handles picConfig.Click
+        Dim frm As New frmSettings
+        frm.Icon = Me.FindForm.Icon
+        frm.Open(mCoins)
+    End Sub
 End Class

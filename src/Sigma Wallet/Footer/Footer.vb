@@ -50,4 +50,9 @@ Friend Class Footer
         End Set
     End Property
 
+    Public ReadOnly Property Name As String Implements itModule.Name
+        Get
+            Return "Footer"
+        End Get
+    End Property
 End Class

@@ -2,6 +2,7 @@
 
 Public Class Header
     Implements itModule
+
 #Region "Varibles"
     Private mAppIcon As Drawing.Icon = Nothing
     Private mCoins As New List(Of itCoin)
@@ -44,4 +45,9 @@ Public Class Header
         End Set
     End Property
 
+    Public ReadOnly Property Name As String Implements itModule.Name
+        Get
+            Return "Header"
+        End Get
+    End Property
 End Class

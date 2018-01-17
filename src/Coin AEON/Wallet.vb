@@ -40,6 +40,14 @@ Public Class AEON_NewWallet
         End Get
     End Property
 
+    Public ReadOnly Property Settings As List(Of itSettings) Implements itCoin.Settings
+        Get
+            Dim x As New List(Of itSettings)
+            x.Add(New clsNodes)
+            Return x
+        End Get
+    End Property
+
     Public Event NewWalletCreated As itCoin.NewWalletCreatedEventHandler Implements itCoin.NewWalletCreated
     Private Sub NewWallet(NewWallet As Coin.Wallet)
         RaiseEvent NewWalletCreated(NewWallet)
