@@ -15,9 +15,75 @@
   ],
   "nodes": [
     {
-      "name": "TDB",
+      "name": "",
+      "protocol": "",
+      "hostname": "node.aeon-wallet.net",
+      "port": 11181
+    },
+    {
+      "name": "",
+      "protocol": "",
+      "hostname": "node1.aeon-wallet.net",
+      "port": 11181
+    },
+    {
+      "name": "",
+      "protocol": "",
+      "hostname": "node2.aeon-wallet.net",
+      "port": 11181
+    },
+    {
+      "name": "",
+      "protocol": "",
+      "hostname": "node3.aeon-wallet.net",
+      "port": 11181
+    },
+    {
+      "name": "",
       "protocol": "",
       "hostname": "node.defusion.de",
+      "port": 11181
+    },
+    {
+      "name": "",
+      "protocol": "",
+      "hostname": "phx-1.snipanet.com",
+      "port": 11181
+    },
+    {
+      "name": "",
+      "protocol": "",
+      "hostname": "phx-2.snipanet.com",
+      "port": 11181
+    },
+    {
+      "name": "",
+      "protocol": "",
+      "hostname": "phx-3.snipanet.com",
+      "port": 11181
+    },
+    {
+      "name": "",
+      "protocol": "",
+      "hostname": "phx-4.snipanet.com",
+      "port": 11181
+    },
+    {
+      "name": "",
+      "protocol": "",
+      "hostname": "phx-5.snipanet.com",
+      "port": 11181
+    },
+    {
+      "name": "",
+      "protocol": "",
+      "hostname": "aeon.mineit.eu",
+      "port": 11181
+    },
+    {
+      "name": "",
+      "protocol": "",
+      "hostname": "node.aeon.hashvault.pro",
       "port": 11181
     }
 
