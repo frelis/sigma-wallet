@@ -63,4 +63,8 @@ Public Class ucFooter
     Private Sub ucFooter_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
         e.Graphics.DrawRectangle(New Pen(Template.Current.border, 3), Me.ClientRectangle)
     End Sub
+
+    Private Sub ucFooter_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        Me.Refresh()
+    End Sub
 End Class

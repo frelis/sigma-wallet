@@ -150,4 +150,8 @@
         If lblprogress.Text <> lbl Then lblprogress.Text = lbl
         progbarSync.Value = CInt((CurrentPos - IniPos) / (EndPos - IniPos))
     End Sub
+
+    Private Sub ucWallet_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+        Me.Refresh()
+    End Sub
 End Class

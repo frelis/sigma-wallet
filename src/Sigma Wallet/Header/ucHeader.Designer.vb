@@ -31,8 +31,8 @@ Partial Class ucHeader
         '
         Me.picConfig.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.picConfig.Image = CType(resources.GetObject("picConfig.Image"), System.Drawing.Image)
-        Me.picConfig.Location = New System.Drawing.Point(277, 8)
-        Me.picConfig.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.picConfig.Location = New System.Drawing.Point(279, 8)
+        Me.picConfig.Margin = New System.Windows.Forms.Padding(2)
         Me.picConfig.Name = "picConfig"
         Me.picConfig.Size = New System.Drawing.Size(32, 32)
         Me.picConfig.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -43,11 +43,10 @@ Partial Class ucHeader
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.Controls.Add(Me.picConfig)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "ucHeader"
-        Me.Size = New System.Drawing.Size(317, 48)
+        Me.Size = New System.Drawing.Size(319, 50)
         CType(Me.picConfig, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
