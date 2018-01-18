@@ -30,7 +30,7 @@ Public Class frmSettings
                     lblSettingsName.Text = c.CoinName
                     For Each s As itSettings In c.Settings
                         If e.Node.Text = s.Name Then
-                            lblSettingsName.Text = " : " + s.Name
+                            lblSettingsName.Text = lblSettingsName.Text + " : " + s.Name
                             pnl.Controls.Clear()
                             pnl.Controls.Add(s.SettingsControl)
                             pnl.Controls.Item(0).Dock = DockStyle.Fill
