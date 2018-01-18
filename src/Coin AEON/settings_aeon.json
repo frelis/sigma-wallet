@@ -17,6 +17,12 @@
     {
       "name": "",
       "protocol": "",
+      "hostname": "localhost",
+      "port": 11181
+    },
+    {
+      "name": "",
+      "protocol": "",
       "hostname": "node.aeon-wallet.net",
       "port": 11181
     },
