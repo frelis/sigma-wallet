@@ -72,10 +72,10 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Settings\frmSettings.Designer.vb">
+    <Compile Include="Header\frmSettings.Designer.vb">
       <DependentUpon>frmSettings.vb</DependentUpon>
     </Compile>
-    <Compile Include="Settings\frmSettings.vb">
+    <Compile Include="Header\frmSettings.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Wallets_data.vb" />
@@ -136,7 +136,7 @@
     <Compile Include="Wallet\Wallet.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Settings\frmSettings.resx">
+    <EmbeddedResource Include="Header\frmSettings.resx">
       <DependentUpon>frmSettings.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Footer\frmAddNew.resx">
