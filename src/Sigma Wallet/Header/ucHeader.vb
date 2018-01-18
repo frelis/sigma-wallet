@@ -18,4 +18,12 @@
         frm.Icon = Me.FindForm.Icon
         frm.Open(mCoins)
     End Sub
+
+    Private Sub picConfig_MouseEnter(sender As Object, e As EventArgs) Handles picConfig.MouseEnter
+        Me.Cursor = Cursors.Hand
+    End Sub
+
+    Private Sub picConfig_MouseLeave(sender As Object, e As EventArgs) Handles picConfig.MouseLeave
+        Me.Cursor = Cursors.Default
+    End Sub
 End Class
