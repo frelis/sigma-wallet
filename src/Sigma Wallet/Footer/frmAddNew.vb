@@ -19,6 +19,10 @@ Friend Class frmAddNew
             AddHandler opt.CheckedChanged, AddressOf optCheckedChanged
             flowpanel.Controls.Add(opt)
         Next
+        If mCoins.Count = 1 Then
+            CType(Me.flowpanel.Controls.Item("opt" + mCoins(0).CoinName), RadioButton).Checked = True
+            btnNext_Click(sender, e)
+        End If
     End Sub
 
     Private Sub optCheckedChanged(sender As Object, e As EventArgs)
