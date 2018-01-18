@@ -111,28 +111,19 @@
     End Sub
 
     Private Sub picCopywalletAdress_MouseEnter(sender As Object, e As EventArgs) Handles picCopywalletAdress.MouseEnter
-        MouseOn()
+        Me.Cursor = Cursors.Hand
     End Sub
 
     Private Sub picCopywalletAdress_MouseLeave(sender As Object, e As EventArgs) Handles picCopywalletAdress.MouseLeave
-        MouseOff()
+        Me.Cursor = Cursors.Default
     End Sub
 
     Private Sub lblWallet_MouseEnter(sender As Object, e As EventArgs) Handles lblWallet.MouseEnter
-        MouseOn()
+        Me.Cursor = Cursors.Hand
     End Sub
 
     Private Sub lblWallet_MouseLeave(sender As Object, e As EventArgs) Handles lblWallet.MouseLeave
-        MouseOff()
-    End Sub
-    Private Sub MouseOn()
-        lblWallet.BackColor = Template.Current.selected
-        picCopywalletAdress.BackColor = Template.Current.selected
-    End Sub
-
-    Private Sub MouseOff()
-        lblWallet.BackColor = Template.Current.background
-        picCopywalletAdress.BackColor = Template.Current.background
+        Me.Cursor = Cursors.Default
     End Sub
 #End Region
     Dim sync As itSyncWallet
