@@ -1,4 +1,6 @@
-﻿Public Class ucWallet
+﻿Imports frelis
+
+Public Class ucWallet
 #Region "Variables and Properties"
     Private mAppIcon As Drawing.Icon
     Public WriteOnly Property Icon() As Drawing.Icon
@@ -39,6 +41,7 @@
                     If c.CoinName = Wallet.coin Then mCoin = c
                 Next
             End If
+            SetStatus(mWallet, mCoin)
         End Set
     End Property
 #End Region
@@ -154,4 +157,13 @@
     Private Sub ucWallet_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         Me.Refresh()
     End Sub
+
+
+    Private Sub SetStatus(w As Coin.Wallet, c As itCoin)
+        If w.last_sync.Year < 2010 Then
+            lblStatus.Text = "Never Sync"
+            lblStatus.ForeColor = Color.DarkRed
+        End If
+    End Sub
+
 End Class
