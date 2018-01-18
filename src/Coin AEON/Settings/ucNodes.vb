@@ -49,7 +49,22 @@ Public Class ucNodes
                 Dim rpl As Net.NetworkInformation.PingReply
                 rpl = ping.Send(lvwi.Text.Substring(0, lvwi.Text.IndexOf(":"c)), 2000)
                 If rpl.Status = Net.NetworkInformation.IPStatus.Success Then
-                    rst = rpl.RoundtripTime.ToString + " ms"
+                    Using tcptest As New Net.Sockets.TcpClient
+                        Try
+                            tcptest.SendTimeout = rpl.RoundtripTime * 4
+                            tcptest.ReceiveTimeout = rpl.RoundtripTime * 4
+                            tcptest.Connect(lvwi.Text.Substring(0, lvwi.Text.IndexOf(":"c)), CInt(lvwi.Text.Substring(lvwi.Text.IndexOf(":"c) + 1)))
+                            If tcptest.Connected Then
+                                rst = rpl.RoundtripTime.ToString + " ms"
+                            Else
+                                rst = "No Server"
+                            End If
+
+                        Catch ex As Exception
+                            rst = "No Server"
+                        End Try
+                        tcptest.Close()
+                    End Using
                     If rpl.RoundtripTime < minping Then
                         index2select = lvwi.Index
                         minping = rpl.RoundtripTime
