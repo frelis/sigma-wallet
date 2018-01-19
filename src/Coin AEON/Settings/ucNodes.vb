@@ -35,15 +35,19 @@ Public Class ucNodes
         Dim canautoselect As Boolean = True
         Dim index2select As Integer
         Dim minping As Long = Long.MaxValue
+        ' Cleaning
+        For Each lvwi As Windows.Forms.ListViewItem In lvwNodes.Items
+            If lvwi.SubItems.Count = 1 Then
+                lvwi.SubItems.Add(" ")
+            Else
+                lvwi.SubItems(1).Text = " "
+            End If
+        Next
         For Each lvwi As Windows.Forms.ListViewItem In lvwNodes.Items
             Dim rst As String = ""
             If lvwi.BackColor = Drawing.Color.LightBlue Then canautoselect = False
             Try
-                If lvwi.SubItems.Count = 1 Then
-                    lvwi.SubItems.Add("Checking ...")
-                Else
-                    lvwi.SubItems(1).Text = "Checking ..."
-                End If
+                lvwi.SubItems(1).Text = "Checking ..."
                 Application.DoEvents()
                 Dim ping As New Net.NetworkInformation.Ping
                 Dim rpl As Net.NetworkInformation.PingReply
