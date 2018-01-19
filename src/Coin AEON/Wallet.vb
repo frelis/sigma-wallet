@@ -1,7 +1,7 @@
 ﻿Imports System.Windows.Forms
 Imports frelis
 
-Public Class AEON_NewWallet
+Public Class AEON_Coin
     Implements itCoin
 
 #Region "Variables"
@@ -36,7 +36,8 @@ Public Class AEON_NewWallet
 
     Public ReadOnly Property Sync As itSyncWallet Implements itCoin.Sync
         Get
-            Throw New NotImplementedException()
+            Dim x As New Sync
+            Return x
         End Get
     End Property
 

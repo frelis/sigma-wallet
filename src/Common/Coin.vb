@@ -33,8 +33,10 @@
     End Structure
 
     Public Structure Movement
-        Dim TimeStamp As Date
+        Dim timestamp As Date
         Dim amount As Decimal
+        Dim block As String
         Dim text As String
+        Dim mixins As List(Of String)
     End Structure
 End Class

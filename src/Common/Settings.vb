@@ -19,21 +19,25 @@ Public Class Settings
     End Class
 #End Region
 
-        Public Shared Function Read() As SettingsData
-            Dim rst As SettingsData = Nothing
-            If IO.File.Exists(Info.DirDoc + "Σ Wallet.json") Then
-                rst = settings.read_settings(Of SettingsData)(Info.DirDoc + "Σ Wallet.json")
-            End If
-            If IsNothing(rst) Then
-                rst = New SettingsData
-            End If
-            If IsNothing(rst.sections) Then
-                rst.sections = New List(Of Section)
-            End If
-            Return rst
-        End Function
+    Public Shared Function Read() As SettingsData
+        Dim rst As SettingsData = Nothing
+        If IO.File.Exists(Info.DirDoc + "Σ Wallet.json") Then
+            rst = Settings.read_settings(Of SettingsData)(Info.DirDoc + "Σ Wallet.json")
+        End If
+        If IsNothing(rst) Then
+            rst = New SettingsData
+        End If
+        If IsNothing(rst.sections) Then
+            rst.sections = New List(Of Section)
+        End If
+        Return rst
+    End Function
 
-        Public Shared Function ReadSetting(Settings As SettingsData, Section As String, SubSection As String, Setting As String) As String
+    Public Shared Function ReadSetting(Section As String, SubSection As String, Setting As String) As String
+        Return ReadSetting(Settings.Read, Section, SubSection, Setting)
+    End Function
+
+    Public Shared Function ReadSetting(Settings As SettingsData, Section As String, SubSection As String, Setting As String) As String
             If IsNothing(Settings.sections) Then Return ""
 
             For Each sec As Section In Settings.sections

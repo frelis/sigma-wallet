@@ -8,7 +8,7 @@
     End Sub
     Private Sub Form1_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         Dim coin As itCoin
-        coin = New AEON_NewWallet
+        coin = New AEON_Coin
         coin.AppIcon = Me.Icon
         coins.Add(coin)
         Wallets_Data.ReadConfig()

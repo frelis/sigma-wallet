@@ -5,8 +5,8 @@ Friend Class clsAEON
     Public Const Name = "AEON"
     Private VERSION = "0.9.14.0"
     Private Shared mValid_handler As Boolean = False
-    Private mBasePath = Info.DirData + Name.ToLower + Info.DirSep
-    Private mHandler As String = mBasePath + "simplewallet.exe"
+    Private Shared mBasePath = Info.DirData + Name.ToLower + Info.DirSep
+    Private Shared mHandler As String = mBasePath + "simplewallet.exe"
     Private mWalletFilePath As String = mBasePath
 #Region "Private Methods"
     Private Function get_wallet_handler() As Boolean
@@ -67,12 +67,12 @@ Friend Class clsAEON
         Return rst
     End Function
 
-    Private Function Aeon_process() As Process
+    Public Shared Function Aeon_process() As Process
         Dim proc As New Process()
-        proc.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
+        'proc.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
+        'proc.StartInfo.CreateNoWindow = True
         proc.StartInfo.RedirectStandardInput = True
         proc.StartInfo.RedirectStandardOutput = True
-        proc.StartInfo.CreateNoWindow = True
         proc.StartInfo.UseShellExecute = False
         proc.StartInfo.FileName = mHandler
         Return proc
