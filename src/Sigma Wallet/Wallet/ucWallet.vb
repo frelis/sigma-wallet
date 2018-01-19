@@ -23,7 +23,6 @@ Public Class ucWallet
         End Set
     End Property
 
-
     Private mWallet As Coin.Wallet
     Public Property Wallet() As Coin.Wallet
         Get
@@ -135,10 +134,12 @@ Public Class ucWallet
         btnSync.Enabled = False
         Try
             If btnSync.Text = "Start Sync" Then
+                btnSync.Text = "Stop Sync"
                 sync = mCoin.Sync
                 AddHandler sync.Progress, AddressOf UpdateProgress
                 sync.Start(mWallet)
             Else
+                btnSync.Text = "Start Sync"
                 sync.Stop()
             End If
         Catch ex As Exception

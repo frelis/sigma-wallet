@@ -69,11 +69,12 @@ Friend Class clsAEON
 
     Public Shared Function Aeon_process() As Process
         Dim proc As New Process()
-        'proc.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
-        'proc.StartInfo.CreateNoWindow = True
+        proc.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
+        proc.StartInfo.CreateNoWindow = True
+        proc.StartInfo.UseShellExecute = False
         proc.StartInfo.RedirectStandardInput = True
         proc.StartInfo.RedirectStandardOutput = True
-        proc.StartInfo.UseShellExecute = False
+        proc.StartInfo.RedirectStandardError = True
         proc.StartInfo.FileName = mHandler
         Return proc
     End Function
