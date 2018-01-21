@@ -134,13 +134,17 @@ Public Class ucWallet
         btnSync.Enabled = False
         Try
             If btnSync.Text = "Start Sync" Then
+                lblprogress.Text = "Start Syncing..."
                 btnSync.Text = "Stop Sync"
                 sync = mCoin.Sync
-                AddHandler sync.Progress, AddressOf UpdateProgress
+                AddHandler sync.Syncing_Start, AddressOf StartSync
+                AddHandler sync.Syncing_Step, AddressOf UpdateProgress
+                AddHandler sync.Syncing_Stop, AddressOf StopSync
                 sync.Start(mWallet)
             Else
-                btnSync.Text = "Start Sync"
                 sync.Stop()
+                lblprogress.Text = ""
+                btnSync.Text = "Start Sync"
             End If
         Catch ex As Exception
             Log.Error("Sync Buton", ex)
@@ -148,23 +152,52 @@ Public Class ucWallet
         btnSync.Enabled = True
     End Sub
 
+    Private Sub StopSync(Finished As Boolean)
+        UpdateStatus("Syncing stopped", Color.DarkRed)
+    End Sub
+
+    Private Sub StartSync(BlockChainHeight As Long)
+        UpdateStatus("Syncing...", Color.Black)
+    End Sub
+
     Private Sub UpdateProgress(IniPos As Long, CurrentPos As Long, EndPos As Long)
+        If Me.InvokeRequired Then
+            Dim args() As Object = {IniPos, CurrentPos, EndPos}
+            Me.Invoke(New Action(Of Long, Long, Long)(AddressOf UpdateProgress), args)
+            Return
+        End If
+
         Dim lbl As String
-        lbl = IniPos.ToString + " of " + EndPos.ToString
-        If lblprogress.Text <> lbl Then lblprogress.Text = lbl
-        progbarSync.Value = CInt((CurrentPos - IniPos) / (EndPos - IniPos))
+        If EndPos = 0 Then
+            lbl = "Block: " + CurrentPos.ToString
+        Else
+            lbl = "Block: " + CurrentPos.ToString("#,###,###") + " of " + EndPos.ToString("#,###,###")
+            If lblprogress.Text <> lbl Then lblprogress.Text = lbl
+            If EndPos <> IniPos Then
+                progbarSync.Value = CInt((CurrentPos - IniPos) / (EndPos - IniPos) * 100)
+            Else
+                progbarSync.Value = progbarSync.Maximum
+            End If
+        End If
     End Sub
 
     Private Sub ucWallet_Resize(sender As Object, e As EventArgs) Handles Me.Resize
         Me.Refresh()
     End Sub
 
-
     Private Sub SetStatus(w As Coin.Wallet, c As itCoin)
         If w.last_sync.Year < 2010 Then
-            lblStatus.Text = "Never Sync"
-            lblStatus.ForeColor = Color.DarkRed
+            UpdateStatus("Never Sync", Color.DarkRed)
         End If
     End Sub
 
+    Private Sub UpdateStatus(text As String, cor As Color)
+        If Me.InvokeRequired Then
+            Dim args() As Object = {text, cor}
+            Me.Invoke(New Action(Of String, Color)(AddressOf UpdateStatus), args)
+            Return
+        End If
+        lblStatus.Text = text
+        lblStatus.ForeColor = cor
+    End Sub
 End Class

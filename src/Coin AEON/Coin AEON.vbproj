@@ -83,7 +83,6 @@
     <Compile Include="Settings\ucNodes.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Sync.vb" />
     <Compile Include="ucNewWallet.Designer.vb">
       <DependentUpon>ucNewWallet.vb</DependentUpon>
     </Compile>

@@ -5,9 +5,8 @@ Friend Class clsAEON
     Public Const Name = "AEON"
     Private VERSION = "0.9.14.0"
     Private Shared mValid_handler As Boolean = False
-    Private Shared mBasePath = Info.DirData + Name.ToLower + Info.DirSep
-    Private Shared mHandler As String = mBasePath + "simplewallet.exe"
-    Private mWalletFilePath As String = mBasePath
+    Private mBasePath = Info.DirData + Name.ToLower + Info.DirSep
+    Private mHandler As String = "simplewallet.exe"
 #Region "Private Methods"
     Private Function get_wallet_handler() As Boolean
         Dim rst As Boolean = False
@@ -24,8 +23,8 @@ Friend Class clsAEON
             Next
             If rst = True Then
                 rst = False
-                If IO.File.Exists(mHandler) Then
-                    If GetVersion() = VERSION Then
+                If IO.File.Exists(mBasePath + mHandler) Then
+                    If GetVersion("") = VERSION Then
                         mValid_handler = True
                         Return True
                     Else
@@ -47,7 +46,7 @@ Friend Class clsAEON
                             End If
                         Next
                         If IO.File.Exists(mHandler) Then
-                            If GetVersion() = VERSION Then
+                            If GetVersion("") = VERSION Then
                                 mValid_handler = True
                                 Return True
                             Else
@@ -67,7 +66,24 @@ Friend Class clsAEON
         Return rst
     End Function
 
-    Public Shared Function Aeon_process() As Process
+    Private Function get_handler(name As String) As Boolean
+        If Not mValid_handler Then get_wallet_handler()
+        If Not mValid_handler Then Return False
+        If name = "" Then Return True
+        If Not IO.Directory.Exists(mBasePath + name) Then IO.Directory.CreateDirectory(mBasePath + name)
+        If Not IO.File.Exists(mBasePath + name + Info.DirSep + mHandler) Then
+            IO.File.Copy(mBasePath + mHandler, mBasePath + name + Info.DirSep + mHandler)
+            Return True
+        Else
+            If Not GetVersion(name) = VERSION Then
+                IO.File.Copy(mBasePath + mHandler, mBasePath + name + Info.DirSep + mHandler)
+                Return True
+            Else
+                Return True
+            End If
+        End If
+    End Function
+    Private Function Aeon_process(name As String) As Process
         Dim proc As New Process()
         proc.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden
         proc.StartInfo.CreateNoWindow = True
@@ -75,14 +91,24 @@ Friend Class clsAEON
         proc.StartInfo.RedirectStandardInput = True
         proc.StartInfo.RedirectStandardOutput = True
         proc.StartInfo.RedirectStandardError = True
-        proc.StartInfo.FileName = mHandler
+        If name = "" Then
+            proc.StartInfo.FileName = mBasePath + mHandler
+        Else
+            proc.StartInfo.FileName = mBasePath + name + Info.DirSep + mHandler
+        End If
+        If IO.File.Exists(proc.StartInfo.FileName.Replace(".exe", ".log")) Then
+            Try
+                IO.File.Delete(proc.StartInfo.FileName.Replace(".exe", ".log"))
+            Catch
+            End Try
+        End If
         Return proc
     End Function
 
-    Private Function GetVersion() As String
+    Private Function GetVersion(name As String) As String
         Dim rst As String = ""
         Try
-            Dim proc As Process = Aeon_process()
+            Dim proc As Process = Aeon_process(name)
 
             proc.StartInfo.Arguments = "--version"
             proc.Start()
@@ -104,16 +130,16 @@ Friend Class clsAEON
     Friend Function CreateNew(name As String, password As String) As Coin.Wallet
         Dim rst As New Coin.Wallet
         Try
-            If Not mValid_handler Then get_wallet_handler()
-            If Not mValid_handler Then
+            Dim goodname As String = Security.CalculateMD5Hash(name)
+            If Not get_handler(goodname) Then
                 Log.Warning("Wallet handler not available", "Wallet handler is not avalaible, wallet was not created")
                 Return rst
             End If
             Dim args As String
-            args = "--generate-new-wallet """ + mWalletFilePath + name + """"
+            args = "--generate-new-wallet """ + mBasePath + goodname + Info.DirSep + "wallet"""
             args = args + " --password """ + password + """"
             args = args + " exit"
-            Dim proc As Process = Aeon_process()
+            Dim proc As Process = Aeon_process(goodname)
             proc.StartInfo.Arguments = args
             proc.Start()
             proc.WaitForExit(10000)
@@ -146,7 +172,7 @@ Friend Class clsAEON
                 If rst.seed <> "" And rst.wallet <> "" And rst.viewkey <> "" Then
                     rst.coin = clsAEON.Name
                     rst.name = name
-                    rst.wallet_location = mWalletFilePath + name
+                    rst.wallet_location = mBasePath + goodname + Info.DirSep
                     rst.password = password
                     rst.amount = 0
                     rst.order = 999
@@ -167,18 +193,19 @@ Friend Class clsAEON
     Friend Function CreateExisting(name As String, password As String, seed As String) As Coin.Wallet
         Dim rst As New Coin.Wallet
         Try
-            If Not mValid_handler Then get_wallet_handler()
-            If Not mValid_handler Then
+            Dim goodname As String = Security.CalculateMD5Hash(name)
+            If Not get_handler(goodname) Then
                 Log.Warning("Wallet handler not available", "Wallet handler is not avalaible, wallet was not created")
                 Return rst
             End If
+
             Dim args As String
             args = "--restore-deterministic-wallet"
-            args = args + " --generate-new-wallet """ + mWalletFilePath + name + """"
+            args = args + " --generate-new-wallet """ + mBasePath + goodname + Info.DirSep + "wallet"""
             args = args + " --password """ + password + """"
             args = args + " --electrum-seed """ + seed + """"
             args = args + " exit"
-            Dim proc As Process = Aeon_process()
+            Dim proc As Process = Aeon_process(goodname)
             proc.StartInfo.Arguments = args
             proc.Start()
             proc.WaitForExit(10000)
@@ -212,7 +239,7 @@ Friend Class clsAEON
                     If rst.seed = seed Then
                         rst.coin = clsAEON.Name
                         rst.name = name
-                        rst.wallet_location = mWalletFilePath + name
+                        rst.wallet_location = mBasePath + goodname + Info.DirSep
                         rst.password = password
                         rst.amount = 0
                         rst.order = 999
@@ -232,4 +259,142 @@ Friend Class clsAEON
         End Try
         Return rst
     End Function
+#Region "Sync"
+    Friend Class Sync
+        Implements itSyncWallet
+#Region "Variables Events"
+        Dim mSyncRunning As Boolean
+        Dim mSyncProccess As Process
+        Dim mSyncWallet As Coin.Wallet
+        Dim mSyncTask As Task
+        Dim mSyncBlockChainHeight As Long
+        Dim mSyncMinBlockChainHeight As Long
+        Public Event Syncing_Start As itSyncWallet.Syncing_StartEventHandler Implements itSyncWallet.Syncing_Start
+        Public Event Syncing_Step As itSyncWallet.Syncing_StepEventHandler Implements itSyncWallet.Syncing_Step
+        Public Event Syncing_Stop As itSyncWallet.Syncing_StopEventHandler Implements itSyncWallet.Syncing_Stop
+#End Region
+        Public Function Start(w As Coin.Wallet) As Boolean Implements itSyncWallet.Start
+            Dim rst As Boolean = False
+            Dim cl As New clsAEON
+
+            mSyncWallet = w
+            Try
+                Task.Run(Sub() BlockChainHeight())
+                Dim folders As String() = w.wallet_location.Split(Info.DirSep)
+                Dim goodname As String = folders(folders.Length - 2)
+                If Not cl.get_handler(goodname) Then
+                    Log.Warning("Wallet handler not available", "Wallet handler is not avalaible, wallet was not created")
+                    Return False
+                End If
+
+                Dim args As String = "--wallet-file """ + w.wallet_location + "wallet"""
+                args = args + " --daemon-address " + Settings.ReadSetting("AEON", "Nodes", "Selected Node")
+                args = args + " exit"
+                mSyncProccess = cl.Aeon_process(goodname)
+                mSyncProccess.StartInfo.Arguments = args
+                mSyncProccess.StartInfo.RedirectStandardError = False
+                mSyncProccess.StartInfo.RedirectStandardOutput = False
+                mSyncProccess.StartInfo.Arguments = args
+                mSyncProccess.EnableRaisingEvents = True
+                AddHandler mSyncProccess.Exited, AddressOf ProcessExited
+                mSyncProccess.Start()
+                mSyncRunning = True
+                mSyncTask = Task.Run(Sub() Start_Sync())
+                rst = True
+            Catch ex As Exception
+                Log.Error("Start Syncing Wallet", ex)
+                rst = False
+            End Try
+            Return rst
+        End Function
+
+        Private Sub ProcessExited(sender As Object, e As EventArgs)
+            RaiseEvent Syncing_Stop(False)
+        End Sub
+
+        Private Sub BlockChainHeight()
+            Dim webClient As New System.Net.WebClient()
+            mSyncBlockChainHeight = 0
+            Try
+                Dim result = webClient.DownloadString("http://" + Settings.ReadSetting("AEON", "Nodes", "Selected Node") + "/getheight")
+                If result.Contains("""height""") Then
+                    result = result.Substring(result.IndexOf("""height""") + 8)
+                    result = result.Substring(result.IndexOf(":") + 1)
+                    result = result.Substring(0, result.IndexOf(","))
+                    mSyncBlockChainHeight = CLng(result) - 1
+                End If
+            Catch ex As Exception
+                mSyncBlockChainHeight = 0
+            End Try
+        End Sub
+
+        Public Function [Stop]() As Boolean Implements itSyncWallet.Stop
+            mSyncRunning = False
+            If mSyncProccess IsNot Nothing Then
+                mSyncProccess.Close()
+            End If
+            Threading.Thread.Sleep(200)
+            Return True
+        End Function
+        Private Sub Start_Sync()
+            Dim line As New Text.StringBuilder
+
+            While mSyncRunning AndAlso Not mSyncProccess.HasExited
+                If IO.File.Exists(mSyncProccess.StartInfo.FileName.Replace(".exe", ".log")) Then
+                    Threading.Thread.Sleep(50)
+                    Using fs As IO.FileStream = IO.File.Open(mSyncProccess.StartInfo.FileName.Replace(".exe", ".log"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.ReadWrite)
+                        While mSyncRunning AndAlso Not mSyncProccess.HasExited
+                            Dim x As Integer = fs.ReadByte
+                            If x > 0 Then
+                                line.Append(ChrW(x))
+                                If line.ToString.EndsWith(vbNewLine) Then
+                                    HandleLine(line.ToString.Substring(27).Trim)
+                                    line.Clear()
+                                End If
+                            Else
+                                Threading.Thread.Sleep(10)
+                            End If
+                        End While
+                    End Using
+                End If
+                Threading.Thread.Sleep(10)
+            End While
+        End Sub
+
+        Private Sub HandleLine(Line As String)
+            If Line.StartsWith("Skipped block by timestamp") Then
+                Line = Line.Substring(35)
+                Line = Line.Substring(0, Line.IndexOf(","))
+                Dim pos As Long = CLng(Line)
+                If mSyncMinBlockChainHeight = 0 Then mSyncMinBlockChainHeight = pos
+                RaiseEvent Syncing_Step(mSyncMinBlockChainHeight, pos, mSyncBlockChainHeight)
+            ElseIf Line.StartsWith("Processed block: <") Then
+                Line = Line.Substring(91)
+                Line = Line.Substring(0, Line.IndexOf(","))
+                    Dim pos As Long = CLng(Line)
+                    If mSyncMinBlockChainHeight = 0 Then mSyncMinBlockChainHeight = pos
+                    RaiseEvent Syncing_Step(mSyncMinBlockChainHeight, pos, mSyncBlockChainHeight)
+                ElseIf Line.StartsWith("aeon wallet v") Then
+                    mSyncProccess.StandardInput.WriteLine(mSyncWallet.password)
+            ElseIf Line.StartsWith("ERROR") Then
+                IO.File.AppendAllText(mSyncProccess.StartInfo.FileName + ".log", "--> " + Line + vbNewLine)
+                Log.Warning("Error in Syncing", Line)
+            ElseIf Line.StartsWith("Starting refresh...") Then
+                RaiseEvent Syncing_Start(mSyncBlockChainHeight)
+            Else
+                If Line.StartsWith("Loaded wallet keys file") Then
+                ElseIf Line.StartsWith("Opened wallet") Then
+                ElseIf Line.Contains("list of available commands.") Then
+                ElseIf Line.StartsWith("****************************************") Then
+                ElseIf Line.StartsWith("Refresh done, blocks received:") Then
+                ElseIf Line.StartsWith("Block is already in blockchain:") Then
+                Else
+                    IO.File.AppendAllText(mSyncProccess.StartInfo.FileName + ".log", Line + vbNewLine)
+                End If
+            End If
+        End Sub
+
+    End Class
+
+#End Region
 End Class

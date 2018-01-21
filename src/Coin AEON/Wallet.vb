@@ -36,7 +36,7 @@ Public Class AEON_Coin
 
     Public ReadOnly Property Sync As itSyncWallet Implements itCoin.Sync
         Get
-            Dim x As New Sync
+            Dim x As New clsAEON.Sync
             Return x
         End Get
     End Property

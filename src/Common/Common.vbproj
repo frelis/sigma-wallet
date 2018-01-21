@@ -75,6 +75,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Security.vb" />
     <Compile Include="Template.vb" />
     <Compile Include="frmDownloadFile.Designer.vb">
       <DependentUpon>frmDownloadFile.vb</DependentUpon>
