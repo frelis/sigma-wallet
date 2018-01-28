@@ -79,6 +79,7 @@ Public Class ucWallet
         lblCoin.Text = "!"
         lblWallet.Text = "!"
         lblValue.Text = "!"
+        lblStatus.Text = "!"
         Lang.Translate_Control_Container(Me)
 
         Me.BackColor = Template.Current.background
