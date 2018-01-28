@@ -30,17 +30,13 @@ Public Class ucWallet
         End Get
         Set(ByVal value As Coin.Wallet)
             mWallet = value
-            lblName.Text = mWallet.name
-            lblCoin.Text = mWallet.coin
-            lblWallet.Text = mWallet.wallet
-            UpdateAmount(mWallet.amount)
             mCoin = Nothing
             If mCoins.Count > 0 Then
                 For Each c As itCoin In mCoins
                     If c.CoinName = Wallet.coin Then mCoin = c
                 Next
             End If
-            SetStatus(mWallet, mCoin)
+            UpdateWallet()
         End Set
     End Property
 #End Region
@@ -60,6 +56,7 @@ Public Class ucWallet
     Private Sub Control_Enter(sender As Object, e As EventArgs)
         Expand()
     End Sub
+
     Private Sub Expand()
         Static notexpanded As Integer = Me.Height
         Static expanded As Integer = CInt(Me.Height * 174 / 115)
@@ -76,22 +73,32 @@ Public Class ucWallet
         End If
 
     End Sub
-
 #End Region
     Private Sub ucWallet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        lblName.Text = "!"
+        lblCoin.Text = "!"
+        lblWallet.Text = "!"
+        lblValue.Text = "!"
+        Lang.Translate_Control_Container(Me)
+
         Me.BackColor = Template.Current.background
         Me.pnlHeader.BackColor = Template.Current.background_alt
         AddHandler Me.MouseEnter, AddressOf Control_Enter
         AddHandler Me.MouseLeave, AddressOf Control_Leave
         AddEvents(Me.Controls)
+        UpdateWallet()
     End Sub
 
     Private Sub ucWallet_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
         e.Graphics.DrawRectangle(New Pen(Template.Current.border, 3), Me.ClientRectangle)
     End Sub
 
-    Private Sub UpdateAmount(amount As Decimal)
-        lblValue.Text = "Balance: " + amount.ToString("0.000")
+    Private Sub UpdateWallet()
+        lblName.Text = mWallet.name
+        lblCoin.Text = mWallet.coin
+        lblWallet.Text = mWallet.wallet
+        lblValue.Text = Lang.Str("Balance: {0}", mWallet.amount)
+        SetStatus(mWallet, mCoin)
     End Sub
 #Region "Copy address to clipboard"
     Private Sub picCopywalletAdress_Click(sender As Object, e As EventArgs) Handles picCopywalletAdress.Click
@@ -106,7 +113,7 @@ Public Class ucWallet
         Try
             Clipboard.SetData(DataFormats.Text, CType(mWallet.wallet, Object))
             Dim ok As New ucSuccess
-            ok.Open(Me.FindForm, "Address of " + Wallet.name + " copied to clipboard", 3)
+            ok.Open(Me.FindForm, Lang.Str("Address of {0} copied to clipboard", Wallet.name), 3)
         Catch ex As Exception
             Log.Error("Copy to Clipboard", ex)
         End Try
@@ -134,9 +141,9 @@ Public Class ucWallet
         btnSync.Enabled = False
         Try
             Throw New ArgumentException("Exception Occured")
-            If btnSync.Text = "Start Sync" Then
-                lblprogress.Text = "Start Syncing..."
-                btnSync.Text = "Stop Sync"
+            If btnSync.Text = Lang.Str("B_Start Sync_") Then
+                lblprogress.Text = Lang.Str("Start Syncing...")
+                btnSync.Text = Lang.Str("B_Stop Sync_")
                 sync = mCoin.Sync
                 AddHandler sync.Syncing_Start, AddressOf StartSync
                 AddHandler sync.Syncing_Step, AddressOf UpdateProgress
@@ -145,7 +152,7 @@ Public Class ucWallet
             Else
                 sync.Stop()
                 lblprogress.Text = ""
-                btnSync.Text = "Start Sync"
+                btnSync.Text = Lang.Str("B_Start Sync_")
             End If
         Catch ex As Exception
             Log.Error("Sync Button", ex)
@@ -170,9 +177,9 @@ Public Class ucWallet
 
         Dim lbl As String
         If EndPos = 0 Then
-            lbl = "Block: " + CurrentPos.ToString
+            lbl = Lang.Str("Block: {0:#,###,###}", CurrentPos)
         Else
-            lbl = "Block: " + CurrentPos.ToString("#,###,###") + " of " + EndPos.ToString("#,###,###")
+            lbl = Lang.Str("Block: {0:#,###,###} of {1:#,###,###}", CurrentPos, EndPos)
             If lblprogress.Text <> lbl Then lblprogress.Text = lbl
             If EndPos <> IniPos Then
                 progbarSync.Value = CInt((CurrentPos - IniPos) / (EndPos - IniPos) * 100)
@@ -188,7 +195,7 @@ Public Class ucWallet
 
     Private Sub SetStatus(w As Coin.Wallet, c As itCoin)
         If w.last_sync.Year < 2010 Then
-            UpdateStatus("Never Sync", Color.DarkRed)
+            UpdateStatus("Never Synced", Color.DarkRed)
         End If
     End Sub
 
@@ -198,7 +205,7 @@ Public Class ucWallet
             Me.Invoke(New Action(Of String, Color)(AddressOf UpdateStatus), args)
             Return
         End If
-        lblStatus.Text = text
+        lblStatus.Text = Lang.Str(text)
         lblStatus.ForeColor = cor
     End Sub
 End Class

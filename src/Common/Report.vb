@@ -45,6 +45,17 @@ Public Class Report
         Task.Run(Sub() Send_Report(m))
     End Sub
 
+    Shared Sub Lang(lang As String, txt As String)
+        Dim m As New msg
+        m.instalation_id = get_id()
+        m.version = get_version()
+        m.timestamp = Now
+        m.type = "lang"
+        m.name = lang
+        m.obj = txt
+        Task.Run(Sub() Send_Report(m))
+    End Sub
+
     Private Shared Sub Send_Report(m As msg)
         Try
             Dim req As Net.WebRequest = Net.WebRequest.Create("https://report.numberbit.com:56565/sigma-wallet/")

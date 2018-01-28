@@ -31,7 +31,7 @@ Partial Class ucFooter
         Me.btnAddNew.Name = "btnAddNew"
         Me.btnAddNew.Size = New System.Drawing.Size(171, 38)
         Me.btnAddNew.TabIndex = 0
-        Me.btnAddNew.Text = "Add Wallet"
+        Me.btnAddNew.Text = "_Add Wallet_"
         Me.btnAddNew.UseVisualStyleBackColor = True
         '
         'ucFooter

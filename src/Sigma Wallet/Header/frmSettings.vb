@@ -1,14 +1,13 @@
 ﻿Imports frelis
 
-
 Public Class frmSettings
     Private mCoins As List(Of itCoin)
     Friend Sub Open(Coins As List(Of itCoin))
         mCoins = Coins
         For Each c In mCoins
-            Dim t As TreeNode = tvwSections.Nodes.Add(c.CoinName)
+            Dim t As TreeNode = tvwSections.Nodes.Add(Lang.Str(c.CoinName))
             For Each s As itSettings In c.Settings
-                t.Nodes.Add(s.Name)
+                t.Nodes.Add(Lang.Str(s.Name))
             Next
         Next
         tvwSections.ExpandAll()
@@ -26,11 +25,11 @@ Public Class frmSettings
     Private Sub tvwSections_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles tvwSections.AfterSelect
         If e.Node.Level = 1 Then
             For Each c In mCoins
-                If e.Node.Parent.Text = c.CoinName Then
-                    lblSettingsName.Text = c.CoinName
+                If e.Node.Parent.Text = Lang.Str(c.CoinName) Then
+                    lblSettingsName.Text = Lang.Str(c.CoinName)
                     For Each s As itSettings In c.Settings
-                        If e.Node.Text = s.Name Then
-                            lblSettingsName.Text = lblSettingsName.Text + " : " + s.Name
+                        If e.Node.Text = Lang.Str(s.Name) Then
+                            lblSettingsName.Text = lblSettingsName.Text + " : " + e.Node.Text
                             pnl.Controls.Clear()
                             pnl.Controls.Add(s.SettingsControl)
                             pnl.Controls.Item(0).Dock = DockStyle.Fill

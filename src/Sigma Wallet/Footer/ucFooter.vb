@@ -58,6 +58,7 @@ Public Class ucFooter
 
     Private Sub ucFooter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.BackColor = Template.Current.background_alt
+        Lang.Translate_Control_Container(Me)
     End Sub
 
     Private Sub ucFooter_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint

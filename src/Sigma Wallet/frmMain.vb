@@ -2,9 +2,11 @@
     Dim coins As New List(Of itCoin)
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Lang.Load("en")
         Application.EnableVisualStyles()
         Me.BackColor = Template.Current.background
         Me.flowpanel.BackColor = Template.Current.background
+        Lang.Translate_Control_Container(Me)
     End Sub
     Private Sub Form1_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         Dim coin As itCoin

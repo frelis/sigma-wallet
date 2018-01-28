@@ -43,41 +43,37 @@ Partial Class ucWallet
         Me.pnlHeader.Controls.Add(Me.lblName)
         Me.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlHeader.Location = New System.Drawing.Point(0, 0)
-        Me.pnlHeader.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.pnlHeader.Name = "pnlHeader"
-        Me.pnlHeader.Size = New System.Drawing.Size(317, 26)
+        Me.pnlHeader.Size = New System.Drawing.Size(476, 40)
         Me.pnlHeader.TabIndex = 2
         '
         'lblCoin
         '
         Me.lblCoin.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblCoin.Location = New System.Drawing.Point(245, 5)
-        Me.lblCoin.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblCoin.Location = New System.Drawing.Point(368, 8)
         Me.lblCoin.Name = "lblCoin"
-        Me.lblCoin.Size = New System.Drawing.Size(62, 18)
+        Me.lblCoin.Size = New System.Drawing.Size(93, 28)
         Me.lblCoin.TabIndex = 2
-        Me.lblCoin.Text = "Coin"
+        Me.lblCoin.Text = "!Coin"
         Me.lblCoin.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'lblName
         '
         Me.lblName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblName.Location = New System.Drawing.Point(6, 5)
-        Me.lblName.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblName.Location = New System.Drawing.Point(9, 8)
         Me.lblName.Name = "lblName"
-        Me.lblName.Size = New System.Drawing.Size(205, 18)
+        Me.lblName.Size = New System.Drawing.Size(308, 28)
         Me.lblName.TabIndex = 1
-        Me.lblName.Text = "Name"
+        Me.lblName.Text = "!Name"
         '
         'lblValue
         '
         Me.lblValue.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblValue.Location = New System.Drawing.Point(6, 28)
-        Me.lblValue.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblValue.Location = New System.Drawing.Point(9, 43)
         Me.lblValue.Name = "lblValue"
-        Me.lblValue.Size = New System.Drawing.Size(131, 18)
+        Me.lblValue.Size = New System.Drawing.Size(196, 28)
         Me.lblValue.TabIndex = 3
-        Me.lblValue.Text = "Balance: "
+        Me.lblValue.Text = "!Balance: 123.123"
         '
         'lblWallet
         '
@@ -85,22 +81,20 @@ Partial Class ucWallet
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblWallet.AutoEllipsis = True
         Me.lblWallet.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWallet.Location = New System.Drawing.Point(23, 48)
-        Me.lblWallet.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblWallet.Location = New System.Drawing.Point(34, 74)
         Me.lblWallet.Name = "lblWallet"
-        Me.lblWallet.Padding = New System.Windows.Forms.Padding(7, 0, 0, 0)
-        Me.lblWallet.Size = New System.Drawing.Size(291, 21)
+        Me.lblWallet.Padding = New System.Windows.Forms.Padding(10, 0, 0, 0)
+        Me.lblWallet.Size = New System.Drawing.Size(436, 32)
         Me.lblWallet.TabIndex = 4
-        Me.lblWallet.Text = "Wallet Address"
+        Me.lblWallet.Text = "!Wallet Address"
         Me.lblWallet.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'picCopywalletAdress
         '
         Me.picCopywalletAdress.Image = CType(resources.GetObject("picCopywalletAdress.Image"), System.Drawing.Image)
-        Me.picCopywalletAdress.Location = New System.Drawing.Point(5, 48)
-        Me.picCopywalletAdress.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.picCopywalletAdress.Location = New System.Drawing.Point(8, 74)
         Me.picCopywalletAdress.Name = "picCopywalletAdress"
-        Me.picCopywalletAdress.Size = New System.Drawing.Size(21, 21)
+        Me.picCopywalletAdress.Size = New System.Drawing.Size(32, 32)
         Me.picCopywalletAdress.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.picCopywalletAdress.TabIndex = 5
         Me.picCopywalletAdress.TabStop = False
@@ -109,22 +103,20 @@ Partial Class ucWallet
         '
         Me.progbarSync.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.progbarSync.Location = New System.Drawing.Point(5, 80)
-        Me.progbarSync.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.progbarSync.Location = New System.Drawing.Point(8, 123)
         Me.progbarSync.Name = "progbarSync"
-        Me.progbarSync.Size = New System.Drawing.Size(227, 9)
+        Me.progbarSync.Size = New System.Drawing.Size(324, 14)
         Me.progbarSync.Step = 1
         Me.progbarSync.TabIndex = 6
         '
         'btnSync
         '
         Me.btnSync.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnSync.Location = New System.Drawing.Point(237, 80)
-        Me.btnSync.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.btnSync.Location = New System.Drawing.Point(338, 123)
         Me.btnSync.Name = "btnSync"
-        Me.btnSync.Size = New System.Drawing.Size(71, 25)
+        Me.btnSync.Size = New System.Drawing.Size(124, 38)
         Me.btnSync.TabIndex = 7
-        Me.btnSync.Text = "Start Sync"
+        Me.btnSync.Text = "_Start Sync_"
         Me.btnSync.UseVisualStyleBackColor = True
         '
         'lblprogress
@@ -133,11 +125,11 @@ Partial Class ucWallet
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblprogress.AutoEllipsis = True
         Me.lblprogress.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblprogress.Location = New System.Drawing.Point(3, 91)
-        Me.lblprogress.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblprogress.Location = New System.Drawing.Point(4, 140)
         Me.lblprogress.Name = "lblprogress"
-        Me.lblprogress.Size = New System.Drawing.Size(230, 14)
+        Me.lblprogress.Size = New System.Drawing.Size(328, 31)
         Me.lblprogress.TabIndex = 8
+        Me.lblprogress.Text = "!"
         Me.lblprogress.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblStatus
@@ -146,17 +138,16 @@ Partial Class ucWallet
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblStatus.AutoEllipsis = True
         Me.lblStatus.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblStatus.Location = New System.Drawing.Point(141, 28)
-        Me.lblStatus.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblStatus.Location = New System.Drawing.Point(212, 43)
         Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(166, 18)
+        Me.lblStatus.Size = New System.Drawing.Size(249, 28)
         Me.lblStatus.TabIndex = 9
-        Me.lblStatus.Text = "Never Sync"
+        Me.lblStatus.Text = "_Never Synced_"
         Me.lblStatus.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'ucWallet
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.lblprogress)
@@ -166,9 +157,8 @@ Partial Class ucWallet
         Me.Controls.Add(Me.lblWallet)
         Me.Controls.Add(Me.lblValue)
         Me.Controls.Add(Me.pnlHeader)
-        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "ucWallet"
-        Me.Size = New System.Drawing.Size(317, 77)
+        Me.Size = New System.Drawing.Size(476, 118)
         Me.pnlHeader.ResumeLayout(False)
         CType(Me.picCopywalletAdress, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)

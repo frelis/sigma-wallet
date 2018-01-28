@@ -30,7 +30,7 @@
     End Sub
 
     Private Sub ucHeader_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        Lang.Translate_Control_Container(Me)
     End Sub
 
     Private Sub ucHeader_Paint(sender As Object, e As PaintEventArgs) Handles Me.Paint
