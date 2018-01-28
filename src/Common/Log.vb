@@ -1,5 +1,6 @@
 ﻿Public Class Log
     Shared Sub [Error](Origin As String, ex As Exception)
+        Report.Error(Origin, ex)
         MsgBox(ex.Message, MsgBoxStyle.Critical, "Error: " + Origin)
     End Sub
 

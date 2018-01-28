@@ -1,16 +1,21 @@
-﻿Public Class Report
-    Private Structure rpt
-        Dim id As String
+﻿Imports System.Net.Security
+Imports System.Security.Cryptography.X509Certificates
+Imports frelis
+
+Public Class Report
+    Private Structure msg
+        Dim instalation_id As String
         Dim version As String
         Dim timestamp As DateTime
         Dim type As String
-        Dim name As Object
-        Dim content As Object
+        Dim name As String
+        Dim obj As Object
     End Structure
 
     Public Shared Function get_id() As String
         Static ID As String = ""
         If ID = "" Then
+            IgnoreBadCertificates()
             If IO.File.Exists(Info.DirData + "InstalationID.txt") Then
                 ID = IO.File.ReadAllText(Info.DirData + "InstalationID.txt")
                 If ID.Length <> 32 Then
@@ -30,13 +35,41 @@
     End Function
 
     Shared Sub [Error](title As String, ex As Exception)
-        Dim r As New rpt
-        r.id = get_id()
-        r.version = get_version()
-        r.timestamp = Now
-        r.type = "error"
-        r.name = "title"
-        r.content = ex
+        Dim m As New msg
+        m.instalation_id = get_id()
+        m.version = get_version()
+        m.timestamp = Now
+        m.type = "error"
+        m.name = title
+        m.obj = ex
+        Task.Run(Sub() Send_Report(m))
     End Sub
 
+    Private Shared Sub Send_Report(m As msg)
+        Try
+            Dim req As Net.WebRequest = Net.WebRequest.Create("https://report.numberbit.com:56565/sigma-wallet/")
+            Dim jsonDataBytes As Byte() = Text.Encoding.UTF8.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(m, Newtonsoft.Json.Formatting.Indented))
+            req.ContentType = "application/json"
+            req.Method = "POST"
+            req.ContentLength = jsonDataBytes.Length
+
+            Using stream As IO.Stream = req.GetRequestStream()
+                stream.Write(jsonDataBytes, 0, jsonDataBytes.Length)
+            End Using
+            Dim response As Net.WebResponse = req.GetResponse()
+            response.Dispose()
+            response = Nothing
+            req = Nothing
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Shared Sub IgnoreBadCertificates()
+        System.Net.ServicePointManager.ServerCertificateValidationCallback = New System.Net.Security.RemoteCertificateValidationCallback(AddressOf AcceptAllCertifications)
+    End Sub
+
+    Private Shared Function AcceptAllCertifications(sender As Object, certificate As X509Certificate, chain As X509Chain, sslPolicyErrors As SslPolicyErrors) As Boolean
+        Return True
+    End Function
 End Class

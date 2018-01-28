@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Lang.vb" />
+    <Compile Include="Report.vb" />
     <Compile Include="Security.vb" />
     <Compile Include="Template.vb" />
     <Compile Include="frmDownloadFile.Designer.vb">

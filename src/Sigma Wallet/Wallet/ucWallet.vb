@@ -133,6 +133,7 @@ Public Class ucWallet
         If IsNothing(mCoin) Then Exit Sub
         btnSync.Enabled = False
         Try
+            Throw New ArgumentException("Exception Occured")
             If btnSync.Text = "Start Sync" Then
                 lblprogress.Text = "Start Syncing..."
                 btnSync.Text = "Stop Sync"
@@ -147,7 +148,7 @@ Public Class ucWallet
                 btnSync.Text = "Start Sync"
             End If
         Catch ex As Exception
-            Log.Error("Sync Buton", ex)
+            Log.Error("Sync Button", ex)
         End Try
         btnSync.Enabled = True
     End Sub
