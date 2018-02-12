@@ -4,8 +4,10 @@ Public Class frmSettings
     Private mCoins As List(Of itCoin)
     Friend Sub Open(Coins As List(Of itCoin))
         mCoins = Coins
+        Lang.Translate_Control_Container(Me)
+        Me.Text = Lang.Str(Me.Text)
         For Each c In mCoins
-            Dim t As TreeNode = tvwSections.Nodes.Add(Lang.Str(c.CoinName))
+            Dim t As TreeNode = tvwSections.Nodes.Add(c.CoinName)
             For Each s As itSettings In c.Settings
                 t.Nodes.Add(Lang.Str(s.Name))
             Next
@@ -25,8 +27,8 @@ Public Class frmSettings
     Private Sub tvwSections_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles tvwSections.AfterSelect
         If e.Node.Level = 1 Then
             For Each c In mCoins
-                If e.Node.Parent.Text = Lang.Str(c.CoinName) Then
-                    lblSettingsName.Text = Lang.Str(c.CoinName)
+                If e.Node.Parent.Text = c.CoinName Then
+                    lblSettingsName.Text = c.CoinName
                     For Each s As itSettings In c.Settings
                         If e.Node.Text = Lang.Str(s.Name) Then
                             lblSettingsName.Text = lblSettingsName.Text + " : " + e.Node.Text

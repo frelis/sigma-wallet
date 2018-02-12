@@ -7,6 +7,8 @@ Public Class ucNodes
 
     Private Sub ucNodes_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim cfg As Coin.Coin_Settings
+
+        Lang.Translate_Control_Container(Me)
         cfg = Settings.read_settings(Of Coin.Coin_Settings)("settings_aeon.json")
         If IsNothing(cfg.nodes) Then cfg.nodes = New List(Of Coin.Node)
         mNodes = cfg.nodes
@@ -47,7 +49,7 @@ Public Class ucNodes
             Dim rst As String = ""
             If lvwi.BackColor = Drawing.Color.LightBlue Then canautoselect = False
             Try
-                lvwi.SubItems(1).Text = "Checking ..."
+                lvwi.SubItems(1).Text = Lang.Str("Checking ...")
                 Application.DoEvents()
                 Dim ping As New Net.NetworkInformation.Ping
                 Dim rpl As Net.NetworkInformation.PingReply
@@ -59,13 +61,13 @@ Public Class ucNodes
                             tcptest.ReceiveTimeout = rpl.RoundtripTime * 4
                             tcptest.Connect(lvwi.Text.Substring(0, lvwi.Text.IndexOf(":"c)), CInt(lvwi.Text.Substring(lvwi.Text.IndexOf(":"c) + 1)))
                             If tcptest.Connected Then
-                                rst = rpl.RoundtripTime.ToString + " ms"
+                                rst = Lang.Str("{0} ms", rpl.RoundtripTime)
                             Else
-                                rst = "No Server"
+                                rst = Lang.Str("No Server")
                             End If
 
                         Catch ex As Exception
-                            rst = "No Server"
+                            rst = Lang.Str("No Server")
                         End Try
                         tcptest.Close()
                     End Using
@@ -74,7 +76,7 @@ Public Class ucNodes
                         minping = rpl.RoundtripTime
                     End If
                 ElseIf rpl.Status = Net.NetworkInformation.IPStatus.TimedOut Then
-                    rst = "Timeout"
+                    rst = Lang.Str("Timeout")
                 Else
                     rst = rpl.Status
                 End If

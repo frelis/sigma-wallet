@@ -37,51 +37,55 @@ Partial Class ucNodes
         Me.lvwNodes.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2})
         Me.lvwNodes.FullRowSelect = True
         Me.lvwNodes.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.lvwNodes.Location = New System.Drawing.Point(9, 36)
+        Me.lvwNodes.Location = New System.Drawing.Point(6, 23)
+        Me.lvwNodes.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.lvwNodes.MultiSelect = False
         Me.lvwNodes.Name = "lvwNodes"
-        Me.lvwNodes.Size = New System.Drawing.Size(395, 236)
+        Me.lvwNodes.Size = New System.Drawing.Size(265, 155)
         Me.lvwNodes.TabIndex = 0
         Me.lvwNodes.UseCompatibleStateImageBehavior = False
         Me.lvwNodes.View = System.Windows.Forms.View.Details
         '
         'ColumnHeader1
         '
-        Me.ColumnHeader1.Text = "Node Address"
+        Me.ColumnHeader1.Text = "_Node Address_"
         '
         'ColumnHeader2
         '
-        Me.ColumnHeader2.Text = "Response Time"
+        Me.ColumnHeader2.Text = "_Response Time_"
         Me.ColumnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'btnSpeed
         '
         Me.btnSpeed.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnSpeed.Location = New System.Drawing.Point(9, 278)
+        Me.btnSpeed.Location = New System.Drawing.Point(6, 181)
+        Me.btnSpeed.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btnSpeed.Name = "btnSpeed"
-        Me.btnSpeed.Size = New System.Drawing.Size(169, 32)
+        Me.btnSpeed.Size = New System.Drawing.Size(113, 21)
         Me.btnSpeed.TabIndex = 1
-        Me.btnSpeed.Text = "Check Nodes"
+        Me.btnSpeed.Text = "_Check Nodes_"
         Me.btnSpeed.UseVisualStyleBackColor = True
         '
         'lblNodesList
         '
         Me.lblNodesList.AutoSize = True
-        Me.lblNodesList.Location = New System.Drawing.Point(5, 10)
+        Me.lblNodesList.Location = New System.Drawing.Point(3, 6)
+        Me.lblNodesList.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblNodesList.Name = "lblNodesList"
-        Me.lblNodesList.Size = New System.Drawing.Size(78, 20)
+        Me.lblNodesList.Size = New System.Drawing.Size(65, 13)
         Me.lblNodesList.TabIndex = 2
-        Me.lblNodesList.Text = "Nodes list"
+        Me.lblNodesList.Text = "_Nodes list_"
         '
         'ucNodes
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.lblNodesList)
         Me.Controls.Add(Me.btnSpeed)
         Me.Controls.Add(Me.lvwNodes)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "ucNodes"
-        Me.Size = New System.Drawing.Size(414, 313)
+        Me.Size = New System.Drawing.Size(276, 203)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

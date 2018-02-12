@@ -38,6 +38,7 @@ Partial Class frmSettings
         '
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.SplitContainer1.Name = "SplitContainer1"
         '
         'SplitContainer1.Panel1
@@ -50,36 +51,40 @@ Partial Class frmSettings
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnReset)
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnl)
         Me.SplitContainer1.Panel2.Controls.Add(Me.lblSettingsName)
-        Me.SplitContainer1.Size = New System.Drawing.Size(617, 504)
-        Me.SplitContainer1.SplitterDistance = 191
+        Me.SplitContainer1.Size = New System.Drawing.Size(411, 328)
+        Me.SplitContainer1.SplitterDistance = 127
+        Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 0
         '
         'tvwSections
         '
         Me.tvwSections.Dock = System.Windows.Forms.DockStyle.Fill
         Me.tvwSections.Location = New System.Drawing.Point(0, 0)
+        Me.tvwSections.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.tvwSections.Name = "tvwSections"
-        Me.tvwSections.Size = New System.Drawing.Size(191, 504)
+        Me.tvwSections.Size = New System.Drawing.Size(127, 328)
         Me.tvwSections.TabIndex = 0
         '
         'btnOk
         '
         Me.btnOk.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnOk.Location = New System.Drawing.Point(300, 454)
+        Me.btnOk.Location = New System.Drawing.Point(200, 295)
+        Me.btnOk.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btnOk.Name = "btnOk"
-        Me.btnOk.Size = New System.Drawing.Size(110, 38)
+        Me.btnOk.Size = New System.Drawing.Size(73, 25)
         Me.btnOk.TabIndex = 4
-        Me.btnOk.Text = "OK"
+        Me.btnOk.Text = "_OK_"
         Me.btnOk.UseVisualStyleBackColor = True
         '
         'btnReset
         '
         Me.btnReset.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnReset.Location = New System.Drawing.Point(12, 454)
+        Me.btnReset.Location = New System.Drawing.Point(8, 295)
+        Me.btnReset.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.btnReset.Name = "btnReset"
-        Me.btnReset.Size = New System.Drawing.Size(110, 38)
+        Me.btnReset.Size = New System.Drawing.Size(73, 25)
         Me.btnReset.TabIndex = 3
-        Me.btnReset.Text = "Reset"
+        Me.btnReset.Text = "_Reset_"
         Me.btnReset.UseVisualStyleBackColor = True
         '
         'pnl
@@ -88,30 +93,33 @@ Partial Class frmSettings
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnl.AutoScroll = True
-        Me.pnl.Location = New System.Drawing.Point(7, 32)
+        Me.pnl.Location = New System.Drawing.Point(5, 21)
+        Me.pnl.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.pnl.Name = "pnl"
-        Me.pnl.Size = New System.Drawing.Size(412, 410)
+        Me.pnl.Size = New System.Drawing.Size(275, 266)
         Me.pnl.TabIndex = 2
         '
         'lblSettingsName
         '
         Me.lblSettingsName.AutoSize = True
         Me.lblSettingsName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSettingsName.Location = New System.Drawing.Point(3, 9)
+        Me.lblSettingsName.Location = New System.Drawing.Point(2, 6)
+        Me.lblSettingsName.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSettingsName.Name = "lblSettingsName"
-        Me.lblSettingsName.Size = New System.Drawing.Size(63, 20)
+        Me.lblSettingsName.Size = New System.Drawing.Size(49, 13)
         Me.lblSettingsName.TabIndex = 1
-        Me.lblSettingsName.Text = "Label1"
+        Me.lblSettingsName.Text = "!Label1"
         '
         'frmSettings
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(617, 504)
+        Me.ClientSize = New System.Drawing.Size(411, 328)
         Me.Controls.Add(Me.SplitContainer1)
+        Me.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.Name = "frmSettings"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Settings"
+        Me.Text = "T_Settings_"
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         Me.SplitContainer1.Panel2.PerformLayout()

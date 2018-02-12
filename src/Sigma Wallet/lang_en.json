@@ -1,6 +1,14 @@
 ﻿{
   "B_Add Wallet_": "Add Wallet",
+  "B_Check Nodes_": "Check Nodes",
+  "B_OK_": "OK",
+  "B_Reset_": "Reset",
+  "B_Start Sync_": "Start Sync",
   "Balance: {0}": "Balance: {0:0.000}",
+  "L_Node Address_": "Node Address",
+  "L_Nodes list_": "Nodes List",
+  "L_Response Time_": "Response Time",
   "Never Synced": "Never Synced",
-  "B_Start Sync_": "Start Sync"
+  "Nodes": "Nodes",
+  "T_Settings_": "Settings"
 }
