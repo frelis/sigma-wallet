@@ -61,9 +61,10 @@ Public Class Report
             If False Then
                 IO.File.AppendAllText("Report.txt", Now.ToString + vbTab + m.type + vbTab + m.name + vbTab + m.obj.ToString + vbNewLine)
             Else
-                '   Dim req As Net.WebRequest = Net.WebRequest.Create("https://report.numberbit.com:56565/sigma-wallet/")
-                Dim req As Net.WebRequest = Net.WebRequest.Create("https://192.168.0.130:56565/sigma-wallet/")
+                Dim req As Net.WebRequest = Net.WebRequest.Create("https://report.numberbit.com:56565/sigma-wallet/")
                 Dim jsonDataBytes As Byte() = Text.Encoding.UTF8.GetBytes(Newtonsoft.Json.JsonConvert.SerializeObject(m, Newtonsoft.Json.Formatting.Indented))
+
+                req.UseDefaultCredentials = True
                 req.ContentType = "application/json"
                 req.Method = "POST"
                 req.ContentLength = jsonDataBytes.Length
