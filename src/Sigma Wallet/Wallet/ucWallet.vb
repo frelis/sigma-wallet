@@ -59,7 +59,7 @@ Public Class ucWallet
 
     Private Sub Expand()
         Static notexpanded As Integer = Me.Height
-        Static expanded As Integer = CInt(Me.Height * 174 / 115)
+        Static expanded As Integer = CInt(Me.Height * 220 / 115)
         If Me.ClientRectangle.Contains(Me.PointToClient(Control.MousePosition)) Then
             If Me.Height <> expanded Then
                 Me.Height = expanded

@@ -33,6 +33,8 @@ Partial Class ucWallet
         Me.btnSync = New System.Windows.Forms.Button()
         Me.lblprogress = New System.Windows.Forms.Label()
         Me.lblStatus = New System.Windows.Forms.Label()
+        Me.btnDelete = New System.Windows.Forms.Button()
+        Me.btnMov = New System.Windows.Forms.Button()
         Me.pnlHeader.SuspendLayout()
         CType(Me.picCopywalletAdress, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -145,10 +147,31 @@ Partial Class ucWallet
         Me.lblStatus.Text = "_Never Synced_"
         Me.lblStatus.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
+        'btnDelete
+        '
+        Me.btnDelete.Location = New System.Drawing.Point(3, 174)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Size = New System.Drawing.Size(124, 38)
+        Me.btnDelete.TabIndex = 10
+        Me.btnDelete.Text = "_Delete_"
+        Me.btnDelete.UseVisualStyleBackColor = True
+        '
+        'btnMov
+        '
+        Me.btnMov.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnMov.Location = New System.Drawing.Point(338, 174)
+        Me.btnMov.Name = "btnMov"
+        Me.btnMov.Size = New System.Drawing.Size(124, 38)
+        Me.btnMov.TabIndex = 11
+        Me.btnMov.Text = "_Movements_"
+        Me.btnMov.UseVisualStyleBackColor = True
+        '
         'ucWallet
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.btnMov)
+        Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.lblprogress)
         Me.Controls.Add(Me.btnSync)
@@ -158,7 +181,7 @@ Partial Class ucWallet
         Me.Controls.Add(Me.lblValue)
         Me.Controls.Add(Me.pnlHeader)
         Me.Name = "ucWallet"
-        Me.Size = New System.Drawing.Size(476, 118)
+        Me.Size = New System.Drawing.Size(476, 268)
         Me.pnlHeader.ResumeLayout(False)
         CType(Me.picCopywalletAdress, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
@@ -175,4 +198,6 @@ Partial Class ucWallet
     Friend WithEvents btnSync As Button
     Friend WithEvents lblprogress As Label
     Friend WithEvents lblStatus As Label
+    Friend WithEvents btnDelete As Button
+    Friend WithEvents btnMov As Button
 End Class
