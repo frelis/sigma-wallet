@@ -343,6 +343,10 @@ Friend Class clsAEON
         Public Function [Stop]() As Boolean Implements itSyncWallet.Stop
             mSyncRunning = False
             If mSyncProccess IsNot Nothing Then
+                If Not mSyncProccess.HasExited Then
+                    mSyncProccess.Kill()
+                    Threading.Thread.Sleep(200)
+                End If
                 mSyncProccess.Close()
             End If
             Threading.Thread.Sleep(200)
@@ -359,7 +363,7 @@ Friend Class clsAEON
                             Dim x As Integer = fs.ReadByte
                             If x > 0 Then
                                 line.Append(ChrW(x))
-                                If line.ToString.EndsWith(vbNewLine) Then
+                                If line.Length > 27 AndAlso line.ToString.EndsWith(vbNewLine) Then
                                     HandleLine(line.ToString.Substring(27).Trim)
                                     line.Clear()
                                 End If
@@ -374,38 +378,41 @@ Friend Class clsAEON
         End Sub
 
         Private Sub HandleLine(Line As String)
-            If Line.StartsWith("Skipped block by timestamp") Then
-                Line = Line.Substring(35)
-                Line = Line.Substring(0, Line.IndexOf(","))
-                Dim pos As Long = CLng(Line)
-                If mSyncMinBlockChainHeight = 0 Then mSyncMinBlockChainHeight = pos
-                RaiseEvent Syncing_Step(mSyncMinBlockChainHeight, pos, mSyncBlockChainHeight)
-            ElseIf Line.StartsWith("Processed block: <") Then
-                Line = Line.Substring(91)
-                Line = Line.Substring(0, Line.IndexOf(","))
+            Try
+                If Line.StartsWith("Skipped block by timestamp") Then
+                    Line = Line.Substring(35)
+                    Line = Line.Substring(0, Line.IndexOf(","))
+                    Dim pos As Long = CLng(Line)
+                    If mSyncMinBlockChainHeight = 0 Then mSyncMinBlockChainHeight = pos
+                    RaiseEvent Syncing_Step(mSyncMinBlockChainHeight, pos, mSyncBlockChainHeight)
+                ElseIf Line.StartsWith("Processed block: <") Then
+                    Line = Line.Substring(91)
+                    Line = Line.Substring(0, Line.IndexOf(","))
                     Dim pos As Long = CLng(Line)
                     If mSyncMinBlockChainHeight = 0 Then mSyncMinBlockChainHeight = pos
                     RaiseEvent Syncing_Step(mSyncMinBlockChainHeight, pos, mSyncBlockChainHeight)
                 ElseIf Line.StartsWith("aeon wallet v") Then
                     mSyncProccess.StandardInput.WriteLine(mSyncWallet.password)
-            ElseIf Line.StartsWith("ERROR") Then
-                IO.File.AppendAllText(mSyncProccess.StartInfo.FileName + ".log", "--> " + Line + vbNewLine)
-                Log.Warning("Error in Syncing", Line)
-            ElseIf Line.StartsWith("Starting refresh...") Then
-                RaiseEvent Syncing_Start(mSyncBlockChainHeight)
-            Else
-                If Line.StartsWith("Loaded wallet keys file") Then
-                ElseIf Line.StartsWith("Opened wallet") Then
-                ElseIf Line.Contains("list of available commands.") Then
-                ElseIf Line.StartsWith("****************************************") Then
-                ElseIf Line.StartsWith("Refresh done, blocks received:") Then
-                ElseIf Line.StartsWith("Block is already in blockchain:") Then
+                ElseIf Line.StartsWith("ERROR") Then
+                    IO.File.AppendAllText(mSyncProccess.StartInfo.FileName + ".log", "--> " + Line + vbNewLine)
+                    Log.Warning("Error in Syncing", Line)
+                ElseIf Line.StartsWith("Starting refresh...") Then
+                    RaiseEvent Syncing_Start(mSyncBlockChainHeight)
                 Else
-                    IO.File.AppendAllText(mSyncProccess.StartInfo.FileName + ".log", Line + vbNewLine)
+                    If Line.StartsWith("Loaded wallet keys file") Then
+                    ElseIf Line.StartsWith("Opened wallet") Then
+                    ElseIf Line.Contains("list of available commands.") Then
+                    ElseIf Line.StartsWith("****************************************") Then
+                    ElseIf Line.StartsWith("Refresh done, blocks received:") Then
+                    ElseIf Line.StartsWith("Block is already in blockchain:") Then
+                    Else
+                        IO.File.AppendAllText(mSyncProccess.StartInfo.FileName + ".log", Line + vbNewLine)
+                    End If
                 End If
-            End If
+            Catch ex As Exception
+                Log.Error("Handle Line", ex)
+            End Try
         End Sub
-
     End Class
 
 #End Region
