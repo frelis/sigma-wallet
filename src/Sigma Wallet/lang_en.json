@@ -1,14 +1,20 @@
 ﻿{
   "B_Add Wallet_": "Add Wallet",
   "B_Check Nodes_": "Check Nodes",
+  "B_Delete_": "Delete",
+  "B_Movements_": "Movements",
   "B_OK_": "OK",
   "B_Reset_": "Reset",
   "B_Start Sync_": "Start Sync",
   "Balance: {0}": "Balance: {0:0.000}",
+  "Checking ...": "Checking ...",
   "L_Node Address_": "Node Address",
   "L_Nodes list_": "Nodes List",
   "L_Response Time_": "Response Time",
   "Never Synced": "Never Synced",
+  "No Server": "No Server",
   "Nodes": "Nodes",
-  "T_Settings_": "Settings"
+  "T_Settings_": "Settings",
+  "Timeout": "Timeout",
+  "{0} ms": "{0} ms"
 }
