@@ -6,6 +6,7 @@
   "B_OK_": "OK",
   "B_Reset_": "Reset",
   "B_Start Sync_": "Start Sync",
+  "B_Stop Sync_": "Stop Sync",
   "Balance: {0}": "Balance: {0:0.000}",
   "Checking ...": "Checking ...",
   "L_Node Address_": "Node Address",

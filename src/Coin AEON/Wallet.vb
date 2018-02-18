@@ -3,7 +3,6 @@ Imports frelis
 
 Public Class AEON_Coin
     Implements itCoin
-
 #Region "Variables"
     Private mAppIcon As Drawing.Icon
 #End Region
@@ -53,4 +52,9 @@ Public Class AEON_Coin
     Private Sub NewWallet(NewWallet As Coin.Wallet)
         RaiseEvent NewWalletCreated(NewWallet)
     End Sub
+
+    Public Function Delete(Wallet As Coin.Wallet) As Boolean Implements itCoin.Delete
+        Dim x As New clsAEON
+        Return x.DeleteWallet(Wallet)
+    End Function
 End Class

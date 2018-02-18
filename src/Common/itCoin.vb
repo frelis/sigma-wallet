@@ -6,6 +6,7 @@
     Event NewWalletCreated(newWallet As Coin.Wallet)
     ReadOnly Property Sync As itSyncWallet
     ReadOnly Property Settings As List(Of itSettings)
+    Function Delete(Wallet As Coin.Wallet) As Boolean
 End Interface
 
 Public Interface itSyncWallet

@@ -259,6 +259,18 @@ Friend Class clsAEON
         End Try
         Return rst
     End Function
+
+    Friend Function DeleteWallet(wallet As Coin.Wallet) As Boolean
+        Dim rst As Boolean = False
+        Try
+            IO.Directory.Delete(wallet.wallet_location, True)
+            rst = True
+        Catch ex As Exception
+            Log.Error("Delete AEON Wallet", ex)
+            rst = False
+        End Try
+        Return rst
+    End Function
 #Region "Sync"
     Friend Class Sync
         Implements itSyncWallet
