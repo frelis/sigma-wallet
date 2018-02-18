@@ -181,7 +181,7 @@ Partial Class ucWallet
         Me.Controls.Add(Me.lblValue)
         Me.Controls.Add(Me.pnlHeader)
         Me.Name = "ucWallet"
-        Me.Size = New System.Drawing.Size(476, 268)
+        Me.Size = New System.Drawing.Size(476, 115)
         Me.pnlHeader.ResumeLayout(False)
         CType(Me.picCopywalletAdress, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
