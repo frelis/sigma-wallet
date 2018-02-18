@@ -1,4 +1,5 @@
 ﻿{
+  "Address of {0} copied to clipboard": "Address of {0} copied to clipboard",
   "B_Add Wallet_": "Add Wallet",
   "B_Check Nodes_": "Check Nodes",
   "B_Delete_": "Delete",
@@ -8,14 +9,21 @@
   "B_Start Sync_": "Start Sync",
   "B_Stop Sync_": "Stop Sync",
   "Balance: {0}": "Balance: {0:0.000}",
-  "Checking ...": "Checking ...",
+  "Checking...": "Checking...",
+  "E_Exception Occured_": "Error Occurred",
   "L_Node Address_": "Node Address",
   "L_Nodes list_": "Nodes List",
   "L_Response Time_": "Response Time",
+  "Block: {0}": "Block: {0:#,###,###}",
+  "Block: {0} of {1}": "Block: {0:#,###,###} of {1:#,###,###}",
   "Never Synced": "Never Synced",
   "No Server": "No Server",
   "Nodes": "Nodes",
+  "Start Syncing...": "Start Syncing...",
+  "Syncing...": "Syncing...",
+  "T_Create New AEON Wallet_": "Create New AEON Wallet",
   "T_Settings_": "Settings",
+  "T_Sync Button_": "Sync Action",
   "Timeout": "Timeout",
   "{0} ms": "{0} ms"
 }

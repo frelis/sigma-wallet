@@ -49,7 +49,7 @@ Public Class ucNodes
             Dim rst As String = ""
             If lvwi.BackColor = Drawing.Color.LightBlue Then canautoselect = False
             Try
-                lvwi.SubItems(1).Text = Lang.Str("Checking ...")
+                lvwi.SubItems(1).Text = Lang.Str("Checking...")
                 Application.DoEvents()
                 Dim ping As New Net.NetworkInformation.Ping
                 Dim rpl As Net.NetworkInformation.PingReply

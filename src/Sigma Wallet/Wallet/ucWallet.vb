@@ -141,7 +141,6 @@ Public Class ucWallet
         If IsNothing(mCoin) Then Exit Sub
         btnSync.Enabled = False
         Try
-            Throw New ArgumentException("Exception Occured")
             If btnSync.Text = Lang.Str("B_Start Sync_") Then
                 btnDelete.Enabled = False
                 lblprogress.Text = Lang.Str("Start Syncing...")
@@ -180,9 +179,9 @@ Public Class ucWallet
 
         Dim lbl As String
         If EndPos = 0 Then
-            lbl = Lang.Str("Block: {0:#,###,###}", CurrentPos)
+            lbl = Lang.Str("Block: {0}", CurrentPos)
         Else
-            lbl = Lang.Str("Block: {0:#,###,###} of {1:#,###,###}", CurrentPos, EndPos)
+            lbl = Lang.Str("Block: {0} of {1}", CurrentPos, EndPos)
             If lblprogress.Text <> lbl Then lblprogress.Text = lbl
             If EndPos <> IniPos Then
                 progbarSync.Value = CInt((CurrentPos - IniPos) / (EndPos - IniPos) * 100)
