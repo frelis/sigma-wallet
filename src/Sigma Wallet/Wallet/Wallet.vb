@@ -9,7 +9,6 @@ Public Class Wallet
     Private mWallet As Coin.Wallet
 #End Region
     Public Event WalletChange As itModule.WalletChangeEventHandler Implements itModule.WalletChange
-    Public Event RefreshMain As itModule.RefreshMainEventHandler Implements itModule.RefreshMain
 
     Public WriteOnly Property AppIcon As Icon Implements itModule.AppIcon
         Set(value As Icon)
@@ -20,7 +19,7 @@ Public Class Wallet
     Public ReadOnly Property Control As UserControl Implements itModule.Control
         Get
             Dim uc As New ucWallet
-            AddHandler uc.GotFocus, AddressOf Resize
+            AddHandler uc.DeleteWallet, AddressOf DeleteWallet
             uc.Coins = mCoins
             If Not IsNothing(mAppIcon) Then uc.Icon = mAppIcon
             uc.Wallet = mWallet
@@ -28,8 +27,8 @@ Public Class Wallet
         End Get
     End Property
 
-    Private Sub Resize(sender As Object, e As EventArgs)
-        RaiseEvent RefreshMain(Nothing)
+    Private Sub DeleteWallet()
+        RaiseEvent WalletChange(mWallet)
     End Sub
 
     Public WriteOnly Property Coins As List(Of itCoin) Implements itModule.Coins

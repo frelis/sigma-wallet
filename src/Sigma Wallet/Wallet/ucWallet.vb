@@ -2,6 +2,7 @@
 
 Public Class ucWallet
 #Region "Variables and Properties"
+    Public Event DeleteWallet()
     Private mAppIcon As Drawing.Icon
     Public WriteOnly Property Icon() As Drawing.Icon
         Set(ByVal value As Drawing.Icon)
@@ -71,7 +72,6 @@ Public Class ucWallet
                 Me.Refresh()
             End If
         End If
-
     End Sub
 #End Region
     Private Sub ucWallet_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -143,6 +143,7 @@ Public Class ucWallet
         Try
             Throw New ArgumentException("Exception Occured")
             If btnSync.Text = Lang.Str("B_Start Sync_") Then
+                btnDelete.Enabled = False
                 lblprogress.Text = Lang.Str("Start Syncing...")
                 btnSync.Text = Lang.Str("B_Stop Sync_")
                 sync = mCoin.Sync
@@ -154,6 +155,7 @@ Public Class ucWallet
                 sync.Stop()
                 lblprogress.Text = ""
                 btnSync.Text = Lang.Str("B_Start Sync_")
+                btnDelete.Enabled = True
             End If
         Catch ex As Exception
             Log.Error("Sync Button", ex)
@@ -208,5 +210,24 @@ Public Class ucWallet
         End If
         lblStatus.Text = Lang.Str(text)
         lblStatus.ForeColor = cor
+    End Sub
+
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+
+        Wallets_Data.ReadConfig()
+        For Each w As Coin.Wallet In Wallets_Data.Data.wallets
+            If w.coin = mWallet.coin AndAlso w.name = mWallet.name Then
+                Wallets_Data.Data.wallets.Remove(w)
+                Exit For
+            End If
+        Next
+        Wallets_Data.SaveConfig()
+        mCoin.Delete(mWallet)
+        Me.Visible = False
+        RaiseEvent DeleteWallet()
+    End Sub
+
+    Private Sub btnMov_Click(sender As Object, e As EventArgs) Handles btnMov.Click
+
     End Sub
 End Class

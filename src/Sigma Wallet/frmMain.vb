@@ -20,7 +20,6 @@
         m.AppIcon = Me.Icon
         m.Coins = coins
         flowpanel.Controls.Add(m.Control)
-        AddHandler m.RefreshMain, AddressOf ResizeMain
 
         For Each w As Coin.Wallet In Wallets_Data.Data.wallets
             m = New Wallet
@@ -28,26 +27,24 @@
             m.Coins = coins
             m.Wallet = w
             flowpanel.Controls.Add(m.Control)
-            AddHandler m.RefreshMain, AddressOf ResizeMain
-
         Next
         m = New Footer
         m.AppIcon = Me.Icon
         m.Coins = coins
         flowpanel.Controls.Add(m.Control)
-        AddHandler m.RefreshMain, AddressOf ResizeMain
-        frmMain_Resize(sender, e)
+        flowpanel_Resize(sender, e)
     End Sub
 
     Private Sub ResizeMain(sender As Control)
-        frmMain_Resize(sender, New EventArgs)
+        '   frmMain_Resize(sender, New EventArgs)
     End Sub
 
     Private Sub UpdateWallets()
-        frmMain_Resize(Me, New EventArgs)
+        '   frmMain_Resize(Me, New EventArgs)
     End Sub
 
-    Private Sub frmMain_Resize(sender As Object, e As EventArgs) Handles Me.Resize
+
+    Private Sub flowpanel_Resize(sender As Object, e As EventArgs) Handles flowpanel.Resize
         For Each c As Control In flowpanel.Controls
             If flowpanel.VerticalScroll.Visible Then
                 c.Width = flowpanel.Width - 5 - SystemInformation.VerticalScrollBarWidth

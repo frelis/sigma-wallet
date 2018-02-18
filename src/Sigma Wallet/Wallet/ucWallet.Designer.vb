@@ -149,7 +149,7 @@ Partial Class ucWallet
         '
         'btnDelete
         '
-        Me.btnDelete.Location = New System.Drawing.Point(3, 174)
+        Me.btnDelete.Location = New System.Drawing.Point(8, 174)
         Me.btnDelete.Name = "btnDelete"
         Me.btnDelete.Size = New System.Drawing.Size(124, 38)
         Me.btnDelete.TabIndex = 10

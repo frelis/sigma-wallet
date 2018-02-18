@@ -47,7 +47,6 @@ Public Class ucFooter
                 p.Controls.Remove(Me)
                 p.Controls.Add(m.Control)
                 p.Controls.Add(Me)
-
                 RaiseEvent NewWallet(wallet)
             End If
         Catch ex As Exception
