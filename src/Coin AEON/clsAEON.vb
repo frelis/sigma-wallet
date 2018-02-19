@@ -284,6 +284,7 @@ Friend Class clsAEON
         Public Event Syncing_Start As itSyncWallet.Syncing_StartEventHandler Implements itSyncWallet.Syncing_Start
         Public Event Syncing_Step As itSyncWallet.Syncing_StepEventHandler Implements itSyncWallet.Syncing_Step
         Public Event Syncing_Stop As itSyncWallet.Syncing_StopEventHandler Implements itSyncWallet.Syncing_Stop
+        Public Event New_Amount As itSyncWallet.New_AmountEventHandler Implements itSyncWallet.New_Amount
 #End Region
         Public Function Start(w As Coin.Wallet) As Boolean Implements itSyncWallet.Start
             Dim rst As Boolean = False
@@ -321,7 +322,7 @@ Friend Class clsAEON
         End Function
 
         Private Sub ProcessExited(sender As Object, e As EventArgs)
-            RaiseEvent Syncing_Stop(False)
+            RaiseEvent Syncing_Stop(mSyncProccess.ExitCode = 0)
         End Sub
 
         Private Sub BlockChainHeight()
@@ -398,20 +399,66 @@ Friend Class clsAEON
                     Log.Warning("Error in Syncing", Line)
                 ElseIf Line.StartsWith("Starting refresh...") Then
                     RaiseEvent Syncing_Start(mSyncBlockChainHeight)
-                Else
+                ElseIf Line.StartsWith("Refresh done, blocks received:") Then
+                    mSyncWallet.last_sync = Now
+                ElseIf Line.StartsWith("balance:") Then
+                    Line = Line.Substring(9)
+                    Dim aux As String() = Line.Split(","c)
+                    If aux.Length < 2 Then
+                        mSyncWallet.amount = Val(aux(0))
+                    Else
+                        mSyncWallet.amount = Val(aux(0))
+                        aux(1) = aux(1).Trim
+                        If aux(1).StartsWith("unlocked balance:") Then
+                            aux(1) = aux(1).Substring(17).Trim
+                            mSyncWallet.amount_available = Val(aux(1))
+                        End If
+                    End If
+                    RaiseEvent New_Amount(0, mSyncWallet.amount)
+                ElseIf Line.StartsWith("Received money:") Then
+                    Line = Line.Substring(15)
+                    Dim aux As String() = Line.Split(","c)
+                    If aux.Length > 1 Then
+                        Dim amount As Decimal
+                        Dim tx As String
+                        amount = Val(aux(0))
+                        aux(1) = aux(1).Trim
+                        tx = aux(1).Substring(9).Replace("<", "").Replace(">", "")
+                        Dim found As Boolean = False
+                        For Each mov As Coin.Movement In mSyncWallet.history
+                            If mov.block = tx Then
+                                mov.amount += amount
+                                mov.mixins.Add(aux(0) + ", " + tx)
+                                found = True
+                                Exit For
+                            End If
+                        Next
+                        If Not found Then
+                            Dim aux_mov As New Coin.Movement
+                            aux_mov.block = tx
+                            aux_mov.amount = amount
+                            aux_mov.mixins = New List(Of String)
+                            aux_mov.mixins.Add(aux(0) + ", " + tx)
+                            mSyncWallet.history.Add(aux_mov)
+                        End If
+                        mSyncWallet.amount += amount
+                        RaiseEvent New_Amount(amount, mSyncWallet.amount)
+                    End If
+
+                Else 'lines without efect
                     If Line.StartsWith("Loaded wallet keys file") Then
                     ElseIf Line.StartsWith("Opened wallet") Then
                     ElseIf Line.Contains("list of available commands.") Then
                     ElseIf Line.StartsWith("****************************************") Then
-                    ElseIf Line.StartsWith("Refresh done, blocks received:") Then
                     ElseIf Line.StartsWith("Block is already in blockchain:") Then
+                    ElseIf Line.StartsWith("Height ") Then
                     Else
                         IO.File.AppendAllText(mSyncProccess.StartInfo.FileName + ".log", Line + vbNewLine)
                     End If
                 End If
             Catch ex As Exception
                 Log.Error("Handle Line", ex)
-            End Try
+                End Try
         End Sub
     End Class
 

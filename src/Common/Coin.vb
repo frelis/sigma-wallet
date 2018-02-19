@@ -28,6 +28,7 @@
         Dim viewkey As String
         Dim password As String
         Dim amount As Decimal
+        Dim amount_available As Decimal
         Dim last_sync As DateTime
         Dim history As List(Of Movement)
     End Structure

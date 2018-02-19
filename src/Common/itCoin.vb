@@ -13,6 +13,7 @@ Public Interface itSyncWallet
     Event Syncing_Start(BlockChainHeight As Long)
     Event Syncing_Step(IniPos As Long, CurrentPos As Long, EndPos As Long)
     Event Syncing_Stop(Finished As Boolean)
+    Event New_Amount(incremental As Decimal, total As Decimal)
     Function Start(Wallet As Coin.Wallet) As Boolean
     Function [Stop]() As Boolean
 End Interface

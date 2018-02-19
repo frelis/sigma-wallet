@@ -144,6 +144,7 @@ Public Class ucWallet
             If btnSync.Text = Lang.Str("B_Start Sync_") Then
                 btnDelete.Enabled = False
                 lblprogress.Text = Lang.Str("Start Syncing...")
+                progbarSync.Value = 0
                 btnSync.Text = Lang.Str("B_Stop Sync_")
                 sync = mCoin.Sync
                 AddHandler sync.Syncing_Start, AddressOf StartSync
@@ -163,7 +164,21 @@ Public Class ucWallet
     End Sub
 
     Private Sub StopSync(Finished As Boolean)
-        UpdateStatus("Syncing stopped", Color.DarkRed)
+        If Me.InvokeRequired Then
+            Dim args() As Object = {Finished}
+            Me.Invoke(New Action(Of Boolean)(AddressOf StopSync), args)
+            Return
+        End If
+
+
+        If Finished Then
+            UpdateStatus("Syncing Finished", Color.DarkGreen)
+        Else
+            UpdateStatus("Syncing stopped", Color.DarkRed)
+        End If
+        lblprogress.Text = ""
+        progbarSync.Value = 0
+        btnSync.Text = Lang.Str("B_Start Sync_")
     End Sub
 
     Private Sub StartSync(BlockChainHeight As Long)
