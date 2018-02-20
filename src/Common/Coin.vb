@@ -33,11 +33,11 @@
         Public history As List(Of Movement)
     End Class
 
-    Public Structure Movement
-        Dim timestamp As Date
-        Dim amount As Decimal
-        Dim block As String
-        Dim text As String
-        Dim mixins As List(Of String)
-    End Structure
+    Public Class Movement
+        Public timestamp As Date
+        Public amount As Decimal
+        Public block As String
+        Public text As String
+        Public mixins As List(Of String)
+    End Class
 End Class

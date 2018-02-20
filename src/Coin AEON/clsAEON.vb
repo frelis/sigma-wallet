@@ -445,21 +445,21 @@ Friend Class clsAEON
                         aux(1) = aux(1).Trim
                         tx = aux(1).Substring(9).Replace("<", "").Replace(">", "")
                         Dim found As Boolean = False
-                        For Each mov As Coin.Movement In mSyncWallet.history
-                            If mov.block = tx Then
-                                mov.amount += amount
-                                mov.mixins.Add(aux(0).Trim + ", " + tx)
+                        For i As Integer = mSyncWallet.history.Count - 1 To 0 Step -1
+                            If mSyncWallet.history(i).block = tx Then
+                                mSyncWallet.history(i).amount = mSyncWallet.history(i).amount + amount
+                                mSyncWallet.history(i).mixins.Add(aux(0).Trim + ", " + tx)
                                 found = True
                                 Exit For
                             End If
                         Next
                         If Not found Then
-                            Dim aux_mov As New Coin.Movement
-                            aux_mov.block = tx
-                            aux_mov.amount = amount
-                            aux_mov.mixins = New List(Of String)
-                            aux_mov.mixins.Add(aux(0).Trim + ", " + tx)
-                            mSyncWallet.history.Add(aux_mov)
+                            Dim aux_history_mov As New Coin.Movement
+                            aux_history_mov.block = tx
+                            aux_history_mov.amount = amount
+                            aux_history_mov.mixins = New List(Of String)
+                            aux_history_mov.mixins.Add(aux(0).Trim + ", " + tx)
+                            mSyncWallet.history.Add(aux_history_mov)
                         End If
                         mSyncWallet.amount += amount
                         RaiseEvent New_Amount(amount, mSyncWallet.amount)
