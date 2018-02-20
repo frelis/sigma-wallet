@@ -18,20 +18,20 @@
         Dim port As Integer
     End Structure
 
-    Public Structure Wallet
-        Dim name As String
-        Dim order As Integer
-        Dim coin As String
-        Dim wallet_location As String
-        Dim wallet As String
-        Dim seed As String
-        Dim viewkey As String
-        Dim password As String
-        Dim amount As Decimal
-        Dim amount_available As Decimal
-        Dim last_sync As DateTime
-        Dim history As List(Of Movement)
-    End Structure
+    Public Class Wallet
+        Public name As String
+        Public order As Integer
+        Public coin As String
+        Public wallet_location As String
+        Public wallet As String
+        Public seed As String
+        Public viewkey As String
+        Public password As String
+        Public amount As Decimal
+        Public amount_available As Decimal
+        Public last_sync As DateTime
+        Public history As List(Of Movement)
+    End Class
 
     Public Structure Movement
         Dim timestamp As Date
