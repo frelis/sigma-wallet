@@ -341,6 +341,31 @@ Friend Class clsAEON
             End Try
         End Sub
 
+        Private Function GetTransactionDate(trx As String) As Date
+            Dim rst As Date = #1/1/1000#
+            Dim webClient As New System.Net.WebClient()
+            mSyncBlockChainHeight = 0
+            Try
+                Dim result = webClient.DownloadString("https://chainradar.com/api/v1/aeon/transactions/" + trx + "/summary")
+                If result.Contains("""timestamp""") Then
+                    IO.File.AppendAllText("xxxx.txt", result + vbNewLine)
+                    result = result.Substring(result.IndexOf("""timestamp""") + 11)
+                    result = result.Substring(result.IndexOf(":") + 1)
+                    result = result.Substring(0, result.IndexOf(","))
+                    IO.File.AppendAllText("xxxx.txt", vbNewLine + result + vbNewLine)
+                    Dim unix As Double = Val(result)
+                    If unix > 0 Then
+                        rst = New DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)
+                        rst = rst.AddSeconds(CDbl(unix)).ToLocalTime()
+                    End If
+                End If
+            Catch ex As Exception
+                rst = #1/1/1000#
+            End Try
+            Return rst
+        End Function
+
+
         Public Function [Stop]() As Boolean Implements itSyncWallet.Stop
             mSyncRunning = False
             If mSyncProccess IsNot Nothing Then
@@ -448,7 +473,7 @@ Friend Class clsAEON
                         For i As Integer = mSyncWallet.history.Count - 1 To 0 Step -1
                             If mSyncWallet.history(i).block = tx Then
                                 mSyncWallet.history(i).amount = mSyncWallet.history(i).amount + amount
-                                mSyncWallet.history(i).mixins.Add(aux(0).Trim + ", " + tx)
+                                mSyncWallet.history(i).mixins.Add(aux(0).Trim)
                                 found = True
                                 Exit For
                             End If
@@ -456,9 +481,10 @@ Friend Class clsAEON
                         If Not found Then
                             Dim aux_history_mov As New Coin.Movement
                             aux_history_mov.block = tx
+                            aux_history_mov.timestamp = GetTransactionDate(tx)
                             aux_history_mov.amount = amount
                             aux_history_mov.mixins = New List(Of String)
-                            aux_history_mov.mixins.Add(aux(0).Trim + ", " + tx)
+                            aux_history_mov.mixins.Add(aux(0).Trim)
                             mSyncWallet.history.Add(aux_history_mov)
                         End If
                         mSyncWallet.amount += amount
