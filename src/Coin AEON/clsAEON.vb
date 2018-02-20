@@ -353,21 +353,36 @@ Friend Class clsAEON
             Threading.Thread.Sleep(200)
             Return True
         End Function
-        Private Sub Start_Sync()
-            Dim line As New Text.StringBuilder
 
+        Private Sub Start_Sync()
+            Dim line(1024) As Byte
+            Dim pos_file As Integer = 0
+            Dim char_read As Integer
+            Dim sb As New Text.StringBuilder
             While mSyncRunning AndAlso Not mSyncProccess.HasExited
                 If IO.File.Exists(mSyncProccess.StartInfo.FileName.Replace(".exe", ".log")) Then
                     Threading.Thread.Sleep(50)
                     Using fs As IO.FileStream = IO.File.Open(mSyncProccess.StartInfo.FileName.Replace(".exe", ".log"), IO.FileMode.Open, IO.FileAccess.Read, IO.FileShare.ReadWrite)
                         While mSyncRunning AndAlso Not mSyncProccess.HasExited
-                            Dim x As Integer = fs.ReadByte
-                            If x > 0 Then
-                                line.Append(ChrW(x))
-                                If line.Length > 27 AndAlso line.ToString.EndsWith(vbNewLine) Then
-                                    HandleLine(line.ToString.Substring(27).Trim)
-                                    line.Clear()
-                                End If
+                            fs.Seek(pos_file, IO.SeekOrigin.Begin)
+                            char_read = fs.Read(line, 0, 1024)
+                            If char_read > 0 Then
+                                sb.Append(System.Text.Encoding.ASCII.GetString(line, 0, char_read))
+                                pos_file += char_read
+                                Dim str As String = sb.ToString
+                                Dim lines() As String = str.Split(vbNewLine)
+                                For i As Integer = 0 To lines.Length - 1
+                                    If i = lines.Length - 1 Then
+                                        sb.Clear()
+                                        If Not str.EndsWith(vbNewLine) Then
+                                            sb.Append(lines(i))
+                                        Else
+                                            If lines(i).Length > 27 Then HandleLine(lines(i).Substring(28).Trim)
+                                        End If
+                                    Else
+                                        If lines(i).Length > 27 Then HandleLine(lines(i).Substring(28).Trim)
+                                    End If
+                                Next
                             Else
                                 Threading.Thread.Sleep(10)
                             End If
@@ -380,14 +395,19 @@ Friend Class clsAEON
 
         Private Sub HandleLine(Line As String)
             Try
-                If Line.StartsWith("Skipped block by timestamp") Then
-                    Line = Line.Substring(35)
+                Static tick As Long
+                If Line.StartsWith("Processed block: <") Then
+                    If (Now.Ticks - tick) < 500000 Then Exit Sub
+                    tick = Now.Ticks
+                    Line = Line.Substring(91)
                     Line = Line.Substring(0, Line.IndexOf(","))
                     Dim pos As Long = CLng(Line)
                     If mSyncMinBlockChainHeight = 0 Then mSyncMinBlockChainHeight = pos
                     RaiseEvent Syncing_Step(mSyncMinBlockChainHeight, pos, mSyncBlockChainHeight)
-                ElseIf Line.StartsWith("Processed block: <") Then
-                    Line = Line.Substring(91)
+                ElseIf Line.StartsWith("Skipped block by timestamp") Then
+                    If (Now.Ticks - tick) < 500000 Then Exit Sub
+                    tick = Now.Ticks
+                    Line = Line.Substring(35)
                     Line = Line.Substring(0, Line.IndexOf(","))
                     Dim pos As Long = CLng(Line)
                     If mSyncMinBlockChainHeight = 0 Then mSyncMinBlockChainHeight = pos
@@ -428,7 +448,7 @@ Friend Class clsAEON
                         For Each mov As Coin.Movement In mSyncWallet.history
                             If mov.block = tx Then
                                 mov.amount += amount
-                                mov.mixins.Add(aux(0) + ", " + tx)
+                                mov.mixins.Add(aux(0).Trim + ", " + tx)
                                 found = True
                                 Exit For
                             End If
@@ -438,7 +458,7 @@ Friend Class clsAEON
                             aux_mov.block = tx
                             aux_mov.amount = amount
                             aux_mov.mixins = New List(Of String)
-                            aux_mov.mixins.Add(aux(0) + ", " + tx)
+                            aux_mov.mixins.Add(aux(0).Trim + ", " + tx)
                             mSyncWallet.history.Add(aux_mov)
                         End If
                         mSyncWallet.amount += amount
