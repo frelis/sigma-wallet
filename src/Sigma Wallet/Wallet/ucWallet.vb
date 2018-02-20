@@ -16,7 +16,7 @@ Public Class ucWallet
         Set(ByVal value As List(Of itCoin))
             mCoins = value
             mCoin = Nothing
-            If mWallet.name <> "" Then
+            If mWallet IsNot Nothing AndAlso mWallet.name <> "" Then
                 For Each c As itCoin In mCoins
                     If c.CoinName = Wallet.coin Then mCoin = c
                 Next
@@ -150,6 +150,7 @@ Public Class ucWallet
                 AddHandler sync.Syncing_Start, AddressOf StartSync
                 AddHandler sync.Syncing_Step, AddressOf UpdateProgress
                 AddHandler sync.Syncing_Stop, AddressOf StopSync
+                AddHandler sync.New_Amount, AddressOf New_amount
                 sync.Start(mWallet)
             Else
                 sync.Stop()
@@ -161,6 +162,16 @@ Public Class ucWallet
             Log.Error("Sync Button", ex)
         End Try
         btnSync.Enabled = True
+    End Sub
+
+    Private Sub New_amount(incremental As Decimal, total As Decimal)
+        If Me.InvokeRequired Then
+            Dim args() As Object = {incremental, total}
+            Me.Invoke(New Action(Of Decimal, Decimal)(AddressOf New_amount), args)
+            Return
+        End If
+        UpdateWallet()
+        Wallets_Data.SaveConfig()
     End Sub
 
     Private Sub StopSync(Finished As Boolean)
@@ -176,6 +187,7 @@ Public Class ucWallet
         Else
             UpdateStatus("Syncing stopped", Color.DarkRed)
         End If
+        btnDelete.Enabled = True
         lblprogress.Text = ""
         progbarSync.Value = 0
         btnSync.Text = Lang.Str("B_Start Sync_")
@@ -186,13 +198,13 @@ Public Class ucWallet
     End Sub
 
     Private Sub UpdateProgress(IniPos As Long, CurrentPos As Long, EndPos As Long)
+
         If Me.InvokeRequired Then
             Dim args() As Object = {IniPos, CurrentPos, EndPos}
             Me.Invoke(New Action(Of Long, Long, Long)(AddressOf UpdateProgress), args)
-            Return
-        End If
-
-        Dim lbl As String
+                Return
+            End If
+            Dim lbl As String
         If EndPos = 0 Then
             lbl = Lang.Str("Block: {0}", CurrentPos)
         Else
