@@ -348,11 +348,9 @@ Friend Class clsAEON
             Try
                 Dim result = webClient.DownloadString("https://chainradar.com/api/v1/aeon/transactions/" + trx + "/summary")
                 If result.Contains("""timestamp""") Then
-                    IO.File.AppendAllText("xxxx.txt", result + vbNewLine)
                     result = result.Substring(result.IndexOf("""timestamp""") + 11)
                     result = result.Substring(result.IndexOf(":") + 1)
                     result = result.Substring(0, result.IndexOf(","))
-                    IO.File.AppendAllText("xxxx.txt", vbNewLine + result + vbNewLine)
                     Dim unix As Double = Val(result)
                     If unix > 0 Then
                         rst = New DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)
